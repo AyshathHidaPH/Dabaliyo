@@ -25,8 +25,12 @@ SECRET_KEY = 'django-insecure-s@-5pbbbdtzbinn7frbxzg8p4t7=^p&%r+8wr%&+%r5bifnzo7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = [
 ]
+=======
+ALLOWED_HOSTS = ['*']
+>>>>>>> 56d47677776eb2b61c59fd2ce10bcdd48c0700fd
 CSRF_TRUSTED_ORIGINS = [
     'https://dabaliyo.onrender.com',
 ]
