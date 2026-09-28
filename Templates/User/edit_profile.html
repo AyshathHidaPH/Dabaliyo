@@ -1,0 +1,229 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Edit Profile - Dabaliyo</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="edit-profile-page">
+
+    <div class="edit-profile-container">
+
+        <!-- ================= PROFILE HEADER ================= -->
+
+        <div class="profile-header">
+
+            <div class="profile-photo-wrapper">
+
+                {% if user.profile.profile_image and user.profile.profile_image.name %}
+
+                <img src="{{ user.profile.profile_image.url }}" alt="Profile" class="profile-photo" id="profilePreview">
+
+                {% else %}
+
+                <div class="profile-placeholder" id="profilePlaceholder">
+                    {{ user.username|first|upper }}
+                </div>
+
+                {% endif %}
+
+
+                <!-- Edit Image -->
+
+                <label for="profileImage" class="photo-edit-button">
+                    <i class="fa-solid fa-pencil"></i>
+                </label>
+
+            </div>
+
+
+            <div class="profile-name">
+
+                <h2>
+                    {% if user.first_name %}
+                    {{ user.first_name }} {{ user.last_name }}
+                    {% else %}
+                    {{ user.username }}
+                    {% endif %}
+                </h2>
+
+        <p>
+            {% if user.profile.location %}
+                {{ user.profile.location }}
+            {% else %}
+                Your Location
+            {% endif %}
+        </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= FORM ================= -->
+
+        <form method="POST" enctype="multipart/form-data" class="edit-profile-form">
+
+            {% csrf_token %}
+
+
+            <!-- Hidden image upload -->
+
+            <input type="file" name="profile_image" id="profileImage" accept="image/*" style="display:none;">
+
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="first_name">
+                        Name
+                    </label>
+
+                    <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}"
+                        placeholder="Enter your name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="last_name">
+                        Full Name
+                    </label>
+
+                    <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}"
+                        placeholder="Enter your last name">
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= ROW 2 ================= -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input type="email" id="email" name="email" value="{{ user.email }}" placeholder="Enter your email">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input type="text" id="phone" name="phone" value="{{ user.profile.phone|default:'' }}"
+                        placeholder="Enter your phone number">
+
+                </div>
+
+            </div>
+
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="location">
+                        Location
+                    </label>
+
+                    <input type="text" id="location" name="location" value="{{ user.profile.location|default:'' }}"
+                        placeholder="e.g. New York, USA">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="postal_code">
+                        Postal Code
+                    </label>
+
+                    <input type="text" id="postal_code" name="postal_code"
+                        value="{{ user.profile.postal_code|default:'' }}" placeholder="Enter postal code">
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SAVE BUTTON ================= -->
+
+            <div class="save-container">
+
+                <button type="submit" class="save-button">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= IMAGE PREVIEW ================= -->
+
+<script>
+
+    document.getElementById("profileImage").addEventListener("change", function (event) {
+
+        const file = event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+
+            const oldImage = document.getElementById("profilePreview");
+            const placeholder = document.getElementById("profilePlaceholder");
+
+            if (oldImage) {
+
+                oldImage.src = e.target.result;
+
+            } else if (placeholder) {
+
+                const newImage = document.createElement("img");
+
+                newImage.src = e.target.result;
+                newImage.id = "profilePreview";
+                newImage.className = "profile-photo";
+                newImage.alt = "Profile";
+
+                placeholder.replaceWith(newImage);
+            }
+
+        };
+
+        reader.readAsDataURL(file);
+
+    });
+
+</script>
+
+{% endblock %}

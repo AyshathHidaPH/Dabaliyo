@@ -1,0 +1,60 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title> color table Page </title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/color_page.css' %}">
+{% endblock %}
+{% block content %}
+
+
+
+<div class="container py-5 my-5">
+    <a href="{% url 'dashboard' %}" class="text-decoration-none m-1">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Dashboard
+    </a>
+    <h2 class="fw-bold dashboard-title mb-4">color table </h2>
+
+    <a href="{% url 'color_add' %}" class="btn btn-primary m-4">
+        Add color
+    </a>
+
+    <div class="table-responsive dashboard-card">
+        <table class="table border align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>COLOR</th>
+                    <th>COLOR CODE</th>
+                    <th>DELETE</th>
+                    <th>EDIT</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                    {% for color in colors %}
+
+                <tr>
+                    <td>{{ color.color }}</td>
+                    <td>{{ color.color_code }}</td>
+
+                    <td>
+                        <a href="{% url 'color_delete' color.id %}">
+                            <i class="fa-solid fa-trash-can text-danger"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'color_edit' color.id %}">
+                            <i class="fa-solid fa-user-pen text-primary"></i>
+                        </a>
+                    </td>
+                </tr>
+                    {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

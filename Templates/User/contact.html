@@ -1,0 +1,153 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title> Contact Page </title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container py-5 my-5">
+    <div class="contact-header py-5">
+        <h2 style="color: #8a74d8;">Contact Us</h2>
+        <p class="text-muted">
+            Have questions about our products or services?
+            We're here to help! Reach out to us and we'll respond
+            as soon as possible.
+        </p>
+    </div>
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="contact-card text-center">
+                <div class="icon-circle mb-3">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <h6 class="fw-bold">Our Location</h6>
+                <p class="text-muted small mb-0">
+                    123 Tech Street, Electronic City
+                    <br>
+                    Bangalore, Karnataka 560100
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="contact-card text-center">
+                <div class="icon-circle mb-3">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <h6 class="fw-bold">Phone</h6>
+                <p class="text-muted small mb-0">
+                    +91 98765 43210
+                    <br>
+                    +91 98765 43211
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="contact-card text-center">
+                <div class="icon-circle mb-3">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <h6 class="fw-bold">Email</h6>
+                <p class="text-muted small mb-0">
+                    support@dabaliyo.com
+                    <br>
+                    sales@dabaliyo.com
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="form-card">
+                <h5 class="fw-bold">Send us a Message</h5>
+                <p class="text-muted small">
+                    Fill out the form below and we'll get back to you shortly.
+                </p>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Name *</label>
+                            <input type="text" class="form-control" placeholder="Your name">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Email *</label>
+                            <input type="email" class="form-control" placeholder="Your email">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" placeholder="Your phone number">
+                    </div>
+                    <div class="mb-3">
+                        <label>Subject *</label>
+                        <input type="text" class="form-control" placeholder="What's this about?">
+                    </div>
+                    <div class="mb-3">
+                        <label>Message *</label>
+                        <textarea rows="4" class="form-control" placeholder="Your message..."></textarea>
+                    </div>
+                    <button class="btn btn-purple w-100">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="info-card mb-4">
+                <h5 class="fw-bold mb-4">
+                    <i class="fa-regular fa-clock me-2"></i>
+                    Business Hours
+                </h5>
+                <div class="hours-row">
+                    <span>Monday - Friday</span>
+                    <strong>9:00 AM - 8:00 PM</strong>
+                </div>
+                <div class="hours-row">
+                    <span>Saturday</span>
+                    <strong>10:00 AM - 6:00 PM</strong>
+                </div>
+                <div class="hours-row">
+                    <span>Sunday</span>
+                    <strong>11:00 AM - 5:00 PM</strong>
+                </div>
+            </div>
+            <div class="info-card">
+                <h5 class="fw-bold mb-4">
+                    Frequently Asked Questions
+                </h5>
+                <div class="mb-3">
+                    <h6 class="fw-bold">
+                        What payment methods do you accept?
+                    </h6>
+                    <p class="text-muted small">
+                        We accept all major credit/debit cards,
+                        UPI, net banking, and cash on delivery.
+                    </p>
+                </div>
+                <div class="mb-3">
+                    <h6 class="fw-bold">
+                        What is your return policy?
+                    </h6>
+                    <p class="text-muted small">
+                        We offer a 7-day return policy for all
+                        products in original condition.
+                    </p>
+                </div>
+                <div>
+                    <h6 class="fw-bold">
+                        Do you offer warranty?
+                    </h6>
+                    <p class="text-muted small">
+                        All products come with manufacturer
+                        warranty. Extended warranty available.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

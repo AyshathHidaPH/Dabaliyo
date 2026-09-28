@@ -1,0 +1,916 @@
+/* =========================================================
+   DABALIYO - ADD ADDRESS
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: "Inter", Arial, sans-serif;
+    background: #f7f6fb;
+    color: #252238;
+}
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.address-page {
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.address-header {
+    height: 78px;
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    border-bottom: 1px solid #eeeaf7;
+}
+
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+.back-btn {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f2effc;
+    color: #8a74d8;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+
+.back-btn:hover {
+    background: #8a74d8;
+    color: #ffffff;
+}
+
+
+.address-header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+
+.address-header p {
+    font-size: 13px;
+    color: #88839a;
+}
+
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #8a74d8;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.address-container {
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 40px auto;
+
+    padding: 0 20px;
+}
+
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.address-card {
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    border: 1px solid #eeeaf7;
+
+    box-shadow: 0 8px 30px rgba(45, 35, 80, 0.06);
+
+    padding: 38px;
+}
+
+
+/* =========================================================
+   FORM HEADING
+   ========================================================= */
+
+.form-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding-bottom: 30px;
+
+    border-bottom: 1px solid #eeeaf7;
+}
+
+
+.heading-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    background: #f0ecfc;
+
+    color: #8a74d8;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 19px;
+}
+
+
+.form-heading h2 {
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+
+
+.form-heading p {
+    color: #8d889b;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+
+.section-title {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    margin: 32px 0 22px;
+}
+
+
+.section-title > span {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #8a74d8;
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+
+.section-title h3 {
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+
+.section-title p {
+    color: #9994a6;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 22px 20px;
+}
+
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+.form-group {
+    width: 100%;
+}
+
+
+.form-group label {
+    display: block;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+    color: #353143;
+}
+
+
+.form-group label span {
+    color: #e45f72;
+}
+
+
+.form-group small {
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: 11px;
+
+    color: #9b97a7;
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.input-wrapper {
+    position: relative;
+}
+
+
+.input-wrapper > i {
+    position: absolute;
+
+    left: 15px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #9b93b7;
+
+    font-size: 14px;
+
+    pointer-events: none;
+}
+
+
+.input-wrapper input,
+.input-wrapper select,
+.textarea-wrapper textarea {
+
+    width: 100%;
+
+    border: 1px solid #ddd9e8;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    color: #332f40;
+
+    transition: 0.2s ease;
+}
+
+
+.input-wrapper input,
+.input-wrapper select {
+    height: 48px;
+
+    padding: 0 15px 0 43px;
+}
+
+
+.input-wrapper input::placeholder,
+.textarea-wrapper textarea::placeholder {
+    color: #b2adba;
+}
+
+
+.input-wrapper input:focus,
+.input-wrapper select:focus,
+.textarea-wrapper textarea:focus {
+
+    border-color: #8a74d8;
+
+    box-shadow: 0 0 0 3px rgba(138, 116, 216, 0.10);
+}
+
+
+/* =========================================================
+   SELECT
+   ========================================================= */
+
+.select-wrapper select {
+    appearance: none;
+
+    cursor: pointer;
+}
+
+
+.select-wrapper::after {
+    content: "\f078";
+
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+
+    position: absolute;
+
+    right: 15px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 11px;
+
+    color: #9993a8;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.textarea-wrapper {
+    position: relative;
+}
+
+
+.textarea-wrapper > i {
+    position: absolute;
+
+    left: 15px;
+    top: 17px;
+
+    color: #9b93b7;
+
+    font-size: 14px;
+
+    pointer-events: none;
+}
+
+
+.textarea-wrapper textarea {
+    resize: vertical;
+
+    min-height: 110px;
+
+    padding: 14px 15px 14px 43px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ADDRESS TYPE
+   ========================================================= */
+
+.address-types {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+}
+
+
+.address-type-option {
+    position: relative;
+
+    cursor: pointer;
+}
+
+
+.address-type-option input {
+    position: absolute;
+
+    opacity: 0;
+}
+
+
+.type-content {
+    min-height: 88px;
+
+    padding: 15px;
+
+    border: 1px solid #ded9ea;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    transition: 0.2s ease;
+}
+
+
+.type-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: #f2effb;
+
+    color: #8a74d8;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.type-content strong {
+    display: block;
+
+    font-size: 13px;
+
+    margin-bottom: 4px;
+}
+
+
+.type-content small {
+    display: block;
+
+    color: #9994a5;
+
+    font-size: 10px;
+}
+
+
+.address-type-option input:checked + .type-content {
+
+    border-color: #8a74d8;
+
+    background: #f8f6ff;
+
+    box-shadow: 0 0 0 2px rgba(138, 116, 216, 0.08);
+}
+
+
+.address-type-option input:checked + .type-content .type-icon {
+    background: #8a74d8;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   DEFAULT ADDRESS
+   ========================================================= */
+
+.default-address {
+    margin-top: 28px;
+
+    padding: 18px;
+
+    background: #faf9fd;
+
+    border: 1px solid #eeeaf5;
+
+    border-radius: 12px;
+}
+
+
+.checkbox-container {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    cursor: pointer;
+}
+
+
+.checkbox-container input {
+    position: absolute;
+
+    opacity: 0;
+}
+
+
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+
+    border: 1px solid #cfc9df;
+
+    border-radius: 5px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: transparent;
+
+    flex-shrink: 0;
+
+    transition: 0.2s ease;
+}
+
+
+.checkbox-container input:checked + .custom-checkbox {
+    background: #8a74d8;
+
+    border-color: #8a74d8;
+
+    color: #ffffff;
+}
+
+
+.custom-checkbox i {
+    font-size: 10px;
+}
+
+
+.checkbox-text strong {
+    display: block;
+
+    font-size: 13px;
+
+    margin-bottom: 3px;
+}
+
+
+.checkbox-text small {
+    color: #9691a2;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+   ========================================================= */
+
+.form-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 32px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #eeeaf7;
+}
+
+
+.cancel-btn,
+.save-btn {
+
+    min-height: 46px;
+
+    padding: 0 25px;
+
+    border-radius: 9px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.cancel-btn {
+
+    color: #625d6d;
+
+    background: #f3f1f6;
+
+    border: 1px solid #e6e2eb;
+}
+
+
+.cancel-btn:hover {
+    background: #eae7ef;
+}
+
+
+.save-btn {
+
+    border: none;
+
+    color: #ffffff;
+
+    background: #8a74d8;
+
+    box-shadow: 0 5px 14px rgba(138, 116, 216, 0.22);
+}
+
+
+.save-btn:hover {
+    background: #7962cb;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   SECURITY NOTE
+   ========================================================= */
+
+.secure-note {
+
+    margin-top: 18px;
+
+    padding: 16px 20px;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #eeeaf7;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+}
+
+
+.secure-note > i {
+
+    color: #8a74d8;
+
+    font-size: 17px;
+
+    margin-top: 2px;
+}
+
+
+.secure-note strong {
+
+    display: block;
+
+    font-size: 12px;
+
+    margin-bottom: 3px;
+}
+
+
+.secure-note p {
+
+    font-size: 11px;
+
+    color: #9792a2;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .address-header {
+        padding: 0 20px;
+    }
+
+
+    .logo {
+        font-size: 18px;
+    }
+
+
+    .address-container {
+        margin: 25px auto;
+
+        padding: 0 15px;
+    }
+
+
+    .address-card {
+        padding: 25px 20px;
+    }
+
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .full-width {
+        grid-column: auto;
+    }
+
+
+    .address-types {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 520px) {
+
+    .address-header {
+        height: 68px;
+    }
+
+
+    .header-left {
+        gap: 11px;
+    }
+
+
+    .back-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+
+    .address-header h1 {
+        font-size: 16px;
+    }
+
+
+    .address-header p {
+        font-size: 10px;
+    }
+
+
+    .logo {
+        display: none;
+    }
+
+
+    .address-container {
+        margin: 15px auto;
+
+        padding: 0 10px;
+    }
+
+
+    .address-card {
+        padding: 20px 15px;
+
+        border-radius: 14px;
+    }
+
+
+    .form-heading {
+        padding-bottom: 20px;
+    }
+
+
+    .heading-icon {
+        width: 42px;
+        height: 42px;
+
+        font-size: 16px;
+    }
+
+
+    .form-heading h2 {
+        font-size: 18px;
+    }
+
+
+    .form-heading p {
+        font-size: 11px;
+    }
+
+
+    .section-title {
+        margin-top: 25px;
+    }
+
+
+    .section-title h3 {
+        font-size: 14px;
+    }
+
+
+    .section-title p {
+        font-size: 10px;
+    }
+
+
+    .input-wrapper input,
+    .input-wrapper select {
+        height: 45px;
+    }
+
+
+    .textarea-wrapper textarea {
+        min-height: 100px;
+    }
+
+
+    .type-content {
+        min-height: 75px;
+    }
+
+
+    .form-actions {
+
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+    }
+
+
+    .cancel-btn,
+    .save-btn {
+
+        width: 100%;
+
+        min-height: 46px;
+    }
+
+
+    .secure-note {
+        padding: 14px;
+
+        margin-top: 12px;
+    }
+
+}

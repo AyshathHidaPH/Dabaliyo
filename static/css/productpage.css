@@ -1,0 +1,600 @@
+/* =====================================================
+   PRODUCTS PAGE
+===================================================== */
+
+.products-page {
+    width: 100%;
+    min-height: 100vh;
+    background: #f7f7f8;
+    padding-bottom: 80px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.products-header {
+    text-align: center;
+    padding: 150px 20px 130px;
+}
+
+.products-header h1 {
+    margin: 0;
+    color: #8a74d8;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.products-header p {
+    margin-top: 12px;
+    color: #444;
+    font-size: 17px;
+}
+
+
+/* =====================================================
+   FILTER SECTION
+===================================================== */
+
+.products-filter {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+
+/* =====================================================
+   FILTER FORM
+===================================================== */
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box {
+    flex: 1;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    height: 50px;
+
+    padding: 0 55px 0 16px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    background: white;
+
+    font-size: 16px;
+
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.search-box input:focus {
+    border-color: #8a74d8;
+    box-shadow: 0 0 0 2px rgba(138, 116, 216, 0.12);
+}
+
+
+.search-button {
+    position: absolute;
+
+    right: 0;
+    top: 0;
+
+    width: 50px;
+    height: 50px;
+
+    border: none;
+    background: transparent;
+
+    color: #8a74d8;
+
+    font-size: 17px;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   SORT
+===================================================== */
+
+.sort-box {
+    width: 340px;
+}
+
+.sort-box select {
+    width: 100%;
+    height: 50px;
+
+    padding: 0 15px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    background: white;
+
+    font-size: 16px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.sort-box select:focus {
+    border-color: #8a74d8;
+}
+
+
+/* =====================================================
+   CLEAR
+===================================================== */
+
+.clear-button {
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0 10px;
+
+    color: #333;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    white-space: nowrap;
+}
+
+.clear-button i {
+    color: #4774b8;
+    font-size: 17px;
+}
+
+.clear-button:hover {
+    color: #8a74d8;
+}
+
+
+/* =====================================================
+   BRAND BUTTONS
+===================================================== */
+
+.brand-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+
+    margin-top: 55px;
+}
+
+.brand-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 78px;
+    height: 46px;
+
+    padding: 0 20px;
+
+    border: 1px solid #ddd;
+    border-radius: 9px;
+
+    background: white;
+
+    color: #222;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    transition: 0.2s ease;
+}
+
+.brand-button:hover {
+    border-color: #8a74d8;
+    color: #8a74d8;
+}
+
+.brand-button.active {
+    background: #8a74d8;
+    border-color: #8a74d8;
+    color: white;
+}
+
+
+/* =====================================================
+   PRODUCT COUNT
+===================================================== */
+
+.product-count {
+    max-width: 1400px;
+
+    margin: 55px auto 0;
+
+    padding: 0 30px;
+
+    font-size: 17px;
+
+    color: #222;
+}
+
+.product-count strong {
+    color: #8a74d8;
+}
+
+
+/* =====================================================
+   ALL PRODUCTS
+===================================================== */
+
+.all-products-section {
+    max-width: 1400px;
+
+    margin: 110px auto 0;
+
+    padding: 0 30px;
+}
+
+.all-products-section h2 {
+    margin-bottom: 35px;
+
+    color: #8a74d8;
+
+    font-size: 36px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   PRODUCT GRID
+===================================================== */
+
+.products-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 25px;
+}
+
+
+/* =====================================================
+   PRODUCT CARD
+===================================================== */
+
+.product-card {
+    background: white;
+
+    border: 1px solid #e7e7e7;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    transition: 0.25s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.product-image-container {
+    position: relative;
+
+    height: 280px;
+
+    background: #fafafa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+}
+
+.no-image {
+    color: #999;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   WISHLIST
+===================================================== */
+
+.wishlist-button {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: #4774b8;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =====================================================
+   PRODUCT INFO
+===================================================== */
+
+.product-info {
+    padding: 20px;
+}
+
+.product-brand {
+    margin: 0 0 7px;
+
+    color: #8a74d8;
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+}
+
+.product-name {
+    margin: 0 0 14px;
+
+    color: #222;
+
+    font-size: 18px;
+
+    font-weight: 500;
+
+    min-height: 45px;
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+.product-price {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.discount-price {
+    color: #222;
+
+    font-size: 20px;
+
+    font-weight: 600;
+}
+
+.original-price {
+    color: #999;
+
+    font-size: 14px;
+
+    text-decoration: line-through;
+}
+
+
+/* =====================================================
+   VIEW PRODUCT
+===================================================== */
+
+.view-product-button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 42px;
+
+    border-radius: 7px;
+
+    background: #8a74d8;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    transition: 0.2s ease;
+}
+
+.view-product-button:hover {
+    background: #765fc8;
+    color: white;
+}
+
+
+/* =====================================================
+   NO PRODUCTS
+===================================================== */
+
+.no-products {
+    text-align: center;
+
+    padding: 70px 20px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    border: 1px solid #eee;
+}
+
+.no-products i {
+    font-size: 45px;
+
+    color: #8a74d8;
+
+    margin-bottom: 20px;
+}
+
+.no-products h3 {
+    margin: 0 0 10px;
+
+    color: #222;
+
+    font-size: 22px;
+}
+
+.no-products p {
+    color: #777;
+
+    margin-bottom: 25px;
+}
+
+.no-products a {
+    display: inline-flex;
+
+    padding: 11px 22px;
+
+    background: #8a74d8;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+}
+
+.no-products a:hover {
+    background: #765fc8;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1100px) {
+
+    .products-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .sort-box {
+        width: 280px;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .products-header {
+        padding: 100px 20px 80px;
+    }
+
+    .filter-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sort-box {
+        width: 100%;
+    }
+
+    .clear-button {
+        width: fit-content;
+    }
+
+    .products-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .all-products-section {
+        margin-top: 70px;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .products-header h1 {
+        font-size: 30px;
+    }
+
+    .products-header p {
+        font-size: 15px;
+    }
+
+    .products-filter {
+        padding: 0 15px;
+    }
+
+    .product-count {
+        padding: 0 15px;
+    }
+
+    .all-products-section {
+        padding: 0 15px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .brand-buttons {
+        gap: 8px;
+    }
+
+    .brand-button {
+        min-width: 65px;
+        padding: 0 14px;
+    }
+}

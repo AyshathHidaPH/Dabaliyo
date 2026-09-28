@@ -1,0 +1,804 @@
+{% extends "User/index.html" %}
+{% load static %}
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+
+
+
+<div class="section1 row align-items-center p-4">
+
+    <div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center text-center mb-4 mb-md-0">
+
+        <h1 class="fw-bold text-light display-3">
+            THE ULTIMATE IPHONE EXPERIENCE
+        </h1>
+
+        <a href="{% url 'productpage' %}"
+           class="btn1 btn-primary text-light fw-bold mt-3 px-4 py-2 text-decoration-none">
+            Shop now
+        </a>
+
+    </div>
+    <div class="col-12 col-md-6 text-center">
+
+        <img src="{% static 'images/section1.png' %}"
+             class="img-fluid"
+             alt="iPhone image">
+
+    </div>
+
+</div>
+
+
+<div class="bg-white">
+
+    <div class="container p-5">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <h2 style="color: #8a74d8;" class="fw-bold p-3">
+                Featured Products
+            </h2>
+
+            <a href="{% url 'productpage' %}"
+               style="color: #8a74d8; text-decoration: none;"
+               class="text-end p-4">
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+
+            {% for product in featured_products %}
+
+            <div class="col d-flex">
+
+                <div class="card w-100 h-100 p-3 shadow-sm">
+
+
+                    <div class="wishlist-container">
+
+                        {% if user.is_authenticated %}
+
+                            {% if product.id in wishlist_product_ids %}
+
+                                <form action="{% url 'remove_from_wishlist' product.id %}"
+                                      method="POST"
+                                      class="wishlist-form">
+
+                                    {% csrf_token %}
+
+                                    <button type="submit"
+                                            class="wishlist-btn">
+
+                                        <i class="fa-solid fa-heart wishlist-active"></i>
+
+                                    </button>
+
+                                </form>
+
+                            {% else %}
+
+                                <form action="{% url 'add_to_wishlist' product.id %}"
+                                      method="POST"
+                                      class="wishlist-form">
+
+                                    {% csrf_token %}
+
+                                    <button type="submit"
+                                            class="wishlist-btn">
+
+                                        <i class="fa-regular fa-heart"></i>
+
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+                        {% else %}
+
+                            <a href="{% url 'login' %}"
+                               class="wishlist-btn">
+
+                                <i class="fa-regular fa-heart"></i>
+
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <a href="{% url 'productdescription' product.id %}"
+                       class="product-link">
+
+                        {% if product.image %}
+
+                        <img src="{{ product.image.url }}"
+                             class="card-img-top img-fluid mx-auto"
+                             style="max-width: 180px;
+                                    height: 180px;
+                                    object-fit: contain;"
+                             alt="{{ product.name }}">
+
+                        {% endif %}
+
+
+                        <div class="card-body">
+
+                            <p class="card-title fw-bold">
+                                {{ product.name }}
+                            </p>
+
+                            <p class="card-text text-danger">
+                                ₹{{ product.price }}
+                            </p>
+
+                            <p>
+                                {{ product.storage.size }}
+
+                                {% if product.color %}
+                                    {{ product.color.color }}
+                                {% endif %}
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- =========================
+                         ADD TO CART
+                    ========================= -->
+
+                    <div class="text-center">
+
+                        <form action="{% url 'add_to_cart' product.id %}"
+                              method="POST"
+                              class="add-cart-form">
+
+                            {% csrf_token %}
+
+                            <button type="submit"
+                                    class="btn btn-primary w-100 d-flex align-items-center justify-content-center text-nowrap add-cart-btn">
+
+                                Add to cart
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% empty %}
+
+            <div class="col-12">
+
+                <p class="text-center">
+                    No featured products available.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     ALL PRODUCTS
+========================= -->
+
+<div class="container p-4 ">
+
+    <div class="d-flex justify-content-between align-items-center">
+
+        <h2 style="color: #8a74d8;" class="fw-bold p-3">
+            All Products
+        </h2>
+
+        <a href="{% url 'productpage' %}"
+           style="color: #8a74d8; text-decoration: none;"
+           class="text-end p-4">
+
+            View All
+
+        </a>
+
+    </div>
+
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+
+        {% for product in products %}
+
+        <div class="col d-flex">
+
+            <div class="card w-100 h-100 p-3 shadow-sm">
+
+
+                <!-- =========================
+                     WISHLIST
+                ========================= -->
+
+                <div class="wishlist-container">
+
+                    {% if user.is_authenticated %}
+
+                        {% if product.id in wishlist_product_ids %}
+
+                            <form action="{% url 'remove_from_wishlist' product.id %}"
+                                  method="POST"
+                                  class="wishlist-form">
+
+                                {% csrf_token %}
+
+                                <button type="submit"
+                                        class="wishlist-btn">
+
+                                    <i class="fa-solid fa-heart wishlist-active"></i>
+
+                                </button>
+
+                            </form>
+
+                        {% else %}
+
+                            <form action="{% url 'add_to_wishlist' product.id %}"
+                                  method="POST"
+                                  class="wishlist-form">
+
+                                {% csrf_token %}
+
+                                <button type="submit"
+                                        class="wishlist-btn">
+
+                                    <i class="fa-regular fa-heart"></i>
+
+                                </button>
+
+                            </form>
+
+                        {% endif %}
+
+                    {% else %}
+
+                        <a href="{% url 'login' %}"
+                           class="wishlist-btn">
+
+                            <i class="fa-regular fa-heart"></i>
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =========================
+                     PRODUCT
+                ========================= -->
+
+                <a href="{% url 'productdescription' product.id %}"
+                   class="product-link">
+
+                    {% if product.image %}
+
+                    <img src="{{ product.image.url }}"
+                         class="card-img-top img-fluid mx-auto"
+                         style="max-width: 180px;
+                                height: 180px;
+                                object-fit: contain;"
+                         alt="{{ product.name }}">
+
+                    {% endif %}
+
+
+                    <div class="card-body">
+
+                        <p class="card-title fw-bold">
+                            {{ product.name }}
+                        </p>
+
+                        <p class="card-text text-danger">
+                            ₹{{ product.price }}
+                        </p>
+
+                        <p>
+
+                            {{ product.storage.size }}
+
+                            {% if product.color %}
+                                {{ product.color.color }}
+                            {% endif %}
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+                <!-- =========================
+                     ADD TO CART
+                ========================= -->
+
+                <div class="text-center">
+
+                    <form action="{% url 'add_to_cart' product.id %}"
+                          method="POST"
+                          class="add-cart-form">
+
+                        {% csrf_token %}
+
+                        <button type="submit"
+                                class="btn btn-primary w-100 d-flex align-items-center justify-content-center text-nowrap add-cart-btn">
+
+                            Add to cart
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <p class="text-center">
+                No products available.
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     WHY CHOOSE DABALIYO
+========================= -->
+
+<section class="section-5 container p-4">
+
+    <h2 style="color: #8a74d8;"
+        class="fw-bold text-center my-5 py-5">
+
+        Why Choose Dabaliyo?
+
+    </h2>
+
+
+    <div class="section">
+
+
+        <!-- Genuine Products -->
+
+        <div style="border-radius: 30px;"
+             class="bg-light text-center p-3">
+
+            <div class="icon-circle p-2">
+
+                <i style="font-size: 30px;
+                          background-color: #8a74d8;
+                          color: white;
+                          border-radius: 60px;
+                          padding: 15px;"
+                   class="fa-solid fa-check">
+                </i>
+
+            </div>
+
+
+            <h4 class="fw-bold">
+                Genuine Products
+            </h4>
+
+
+            <p>
+                100% authentic products with manufacturer warranty
+            </p>
+
+        </div>
+
+
+
+        <!-- Best Prices -->
+
+        <div class="text-center p-3">
+
+            <div class="icon-circle p-2">
+
+                <i style="font-size: 30px;
+                          color: #8a74d8;
+                          background-color: white;
+                          border-radius: 60px;
+                          padding: 15px;"
+                   class="fa-solid fa-dollar-sign">
+                </i>
+
+            </div>
+
+
+            <h4 class="fw-bold">
+                Best Prices
+            </h4>
+
+
+            <p>
+                Competitive prices with great deals and offers
+            </p>
+
+        </div>
+
+
+
+        <!-- Support -->
+
+        <div style="border-radius: 30px;"
+             class="bg-light text-center p-3">
+
+            <div class="icon-circle p-2">
+
+                <i style="font-size: 30px;
+                          background-color: #8a74d8;
+                          color: white;
+                          border-radius: 60px;
+                          padding: 15px;"
+                   class="fa-regular fa-life-ring">
+                </i>
+
+            </div>
+
+
+            <h4 class="fw-bold">
+                24/7 Support
+            </h4>
+
+
+            <p>
+                Customer support available round the clock
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     WISHLIST AJAX
+========================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(".wishlist-form").forEach(function (form) {
+
+        form.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+
+            const button = form.querySelector(".wishlist-btn");
+
+            const icon = button.querySelector("i");
+
+
+            const csrfToken = form.querySelector(
+                "[name=csrfmiddlewaretoken]"
+            ).value;
+
+
+            button.disabled = true;
+
+
+            fetch(form.action, {
+
+                method: "POST",
+
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+
+            })
+
+            .then(response => {
+
+                if (!response.ok) {
+                    throw new Error("Wishlist request failed");
+                }
+
+                return response.json().catch(() => ({}));
+
+            })
+
+            .then(() => {
+
+
+                if (icon.classList.contains("fa-regular")) {
+
+                    icon.classList.remove("fa-regular");
+
+                    icon.classList.add("fa-solid");
+
+                    icon.classList.add("wishlist-active");
+
+
+                    form.action = form.action.replace(
+                        "add_to_wishlist",
+                        "remove_from_wishlist"
+                    );
+
+                }
+
+                else {
+
+                    icon.classList.remove("fa-solid");
+
+                    icon.classList.remove("wishlist-active");
+
+                    icon.classList.add("fa-regular");
+
+
+                    form.action = form.action.replace(
+                        "remove_from_wishlist",
+                        "add_to_wishlist"
+                    );
+
+                }
+
+
+                button.disabled = false;
+
+            })
+
+            .catch(error => {
+
+                console.error(error);
+
+                button.disabled = false;
+
+            });
+
+        });
+
+    });
+
+});
+
+</script>
+
+
+<!-- =========================
+     ADD TO CART AJAX
+========================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(".add-cart-form").forEach(function (form) {
+
+        form.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+
+            const button =
+                form.querySelector(".add-cart-btn");
+
+
+            const csrfToken =
+                form.querySelector(
+                    "[name=csrfmiddlewaretoken]"
+                ).value;
+
+
+            const originalText =
+                button.innerHTML;
+
+
+            /* ---------------------------------
+               BUTTON LOADING
+            --------------------------------- */
+
+            button.disabled = true;
+
+            button.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i> Adding...';
+
+
+            /* ---------------------------------
+               SEND AJAX REQUEST
+            --------------------------------- */
+
+            fetch(form.action, {
+
+                method: "POST",
+
+                headers: {
+
+                    "X-CSRFToken": csrfToken,
+
+                    "X-Requested-With": "XMLHttpRequest"
+
+                }
+
+            })
+
+
+            /* ---------------------------------
+               CHECK RESPONSE
+            --------------------------------- */
+
+            .then(function (response) {
+
+                if (!response.ok) {
+
+                    return response.json().then(function (data) {
+
+                        throw new Error(
+                            data.message ||
+                            "Could not add product to cart."
+                        );
+
+                    });
+
+                }
+
+                return response.json();
+
+            })
+
+
+            /* ---------------------------------
+               SUCCESS
+            --------------------------------- */
+
+            .then(function (data) {
+
+                if (data.success) {
+
+
+                    /* SUCCESS MESSAGE */
+
+                    button.innerHTML =
+                        '<i class="fa-solid fa-check"></i> Added Successfully';
+
+
+                    /* CHANGE BUTTON STYLE */
+
+                    button.classList.remove(
+                        "btn-primary"
+                    );
+
+                    button.classList.add(
+                        "btn-success"
+                    );
+
+
+                    /* ---------------------------------
+                       UPDATE NAVBAR CART COUNT
+                    --------------------------------- */
+
+                    const cartCount =
+                        document.querySelector(".cart-count");
+
+
+                    if (cartCount) {
+
+                        cartCount.textContent =
+                            data.cart_count;
+
+                    }
+
+
+                    /* ---------------------------------
+                       RESET BUTTON
+                    --------------------------------- */
+
+                    setTimeout(function () {
+
+                        button.innerHTML =
+                            originalText;
+
+
+                        button.classList.remove(
+                            "btn-success"
+                        );
+
+
+                        button.classList.add(
+                            "btn-primary"
+                        );
+
+
+                        button.disabled = false;
+
+                    }, 1800);
+
+
+                }
+
+                else {
+
+                    button.innerHTML =
+                        "Try Again";
+
+                    button.disabled = false;
+
+                }
+
+            })
+
+
+            /* ---------------------------------
+               ERROR
+            --------------------------------- */
+
+            .catch(function (error) {
+
+                console.error(
+                    "Add to cart error:",
+                    error
+                );
+
+
+                button.innerHTML =
+                    "Try Again";
+
+
+                setTimeout(function () {
+
+                    button.innerHTML =
+                        originalText;
+
+                }, 1800);
+
+
+                button.disabled = false;
+
+            });
+
+        });
+
+    });
+
+});
+
+</script>
+{% endblock %}

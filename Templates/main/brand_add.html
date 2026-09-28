@@ -1,0 +1,54 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title> Add brand Page </title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/brand_add.css' %}">
+{% endblock %}
+{% block content %}
+
+
+
+
+<div class="container-fluid py-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 py-5">
+            <div class="form-card">
+
+                <h3 class="form-title">Add Brand</h3>
+                {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == "error" %}
+                <div class="alert alert-danger mt-2" role="alert">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+
+                <form action="{% url 'brand_add' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" class="form-control custom-input" placeholder="Brand Name" name='name'>
+                        {% if errors.name %}
+                        <small class="text-danger">{{ errors.name }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Upload logo</label>
+                        <input type="file" name="logo" class="form-control" accept="image/*">
+                        {% if errors.logo %}
+                        <small class="text-danger">{{ errors.logo }}</small>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn form-btn w-100">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

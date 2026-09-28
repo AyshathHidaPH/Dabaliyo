@@ -1,0 +1,205 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>My Orders | Dabaliyo</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/my_orders.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<main class="orders-page">
+
+    <div class="orders-container">
+
+        <!-- PAGE HEADER -->
+        <div class="orders-header">
+
+            <div>
+                <h1>My Orders</h1>
+
+                <p>
+                    View and manage your Dabaliyo orders
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             NO ORDERS
+        ================================================== -->
+
+        {% if not orders %}
+
+            <div class="empty-orders">
+
+                <div class="empty-orders-icon">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+
+                <h2>No Orders Yet</h2>
+
+                <p>
+                    You haven't placed any orders yet.
+                </p>
+
+                <a
+                    href="{% url 'productpage' %}"
+                    class="shop-now-btn"
+                >
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    Start Shopping
+                </a>
+
+            </div>
+
+        {% else %}
+
+
+        <!-- =================================================
+             ORDERS LIST
+        ================================================== -->
+
+        <div class="orders-list">
+
+            {% for order in orders %}
+
+            <article class="order-card">
+
+
+                <!-- ORDER TOP -->
+                <div class="order-card-top">
+
+                    <div class="order-info">
+
+                        <h2>
+                            Order #{{ order.id }}
+                        </h2>
+
+                        <p>
+                            {{ order.created_at|date:"d M Y, h:i A" }}
+                        </p>
+
+                    </div>
+
+
+                    <span
+                        class="order-status status-{{ order.status|lower }}"
+                    >
+                        {{ order.status }}
+                    </span>
+
+                </div>
+
+
+                <!-- =================================================
+                     PRODUCT PHOTOS
+                ================================================== -->
+
+                <div class="order-products">
+
+                    {% for item in order.items.all|slice:":5" %}
+
+                    <div class="order-product-image">
+
+                        {% if item.product and item.product.image %}
+
+                            <img
+                                src="{{ item.product.image.url }}"
+                                alt="{{ item.product_name }}"
+                            >
+
+                        {% else %}
+
+                            <div class="no-product-image">
+                                <i class="fa-solid fa-mobile-screen-button"></i>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                    {% empty %}
+
+                        <div class="no-items">
+                            No products
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- =================================================
+                     ORDER BOTTOM
+                ================================================== -->
+
+                <div class="order-card-bottom">
+
+                    <div class="order-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong>
+                            ₹{{ order.grand_total|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'order_details' order.id %}"
+                        class="view-order-btn"
+                    >
+
+                        <i class="fa-solid fa-eye"></i>
+
+                        View Order
+
+                    </a>
+                    {% if order.status != "Delivered" and order.status != "Cancelled" %}
+
+            <form
+                method="POST"
+                action="{% url 'cancel_order' order.id %}"
+                class="cancel-order-form"
+                onsubmit="return confirm('Are you sure you want to cancel this order?');"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="cancel-order-btn"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                    Cancel Order
+                </button>
+
+            </form>
+
+        {% endif %}
+
+
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</main>
+
+{% endblock %}

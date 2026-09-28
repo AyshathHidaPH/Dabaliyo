@@ -1,0 +1,1300 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f4f4f4;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.custom-nav {
+    width: 100%;
+    position: relative;
+    z-index: 1000;
+}
+
+.custom-nav .navbar {
+    width: 100%;
+    min-height: 90px;
+    padding: 8px 0;
+    background: #ffffff;
+}
+
+.custom-nav .container {
+    max-width: 1400px;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo img {
+    width: 160px;
+    height: 70px;
+    object-fit: contain;
+}
+
+
+/* =====================================================
+   NAVIGATION LINKS
+===================================================== */
+
+.custom-nav .navbar-nav {
+    gap: 10px;
+}
+
+.custom-nav .nav-link {
+    color: #8a74d8 !important;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 12px 14px !important;
+    white-space: nowrap;
+    transition: 0.3s ease;
+}
+
+.custom-nav .nav-link:hover {
+    color: #6c55c9 !important;
+}
+
+.custom-nav .nav-link.active {
+    color: #6c55c9 !important;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-item {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.navbar-search {
+    width: 310px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+.navbar-search input {
+    flex: 1;
+
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+
+    padding: 0 15px;
+
+    font-size: 15px;
+    color: #333;
+}
+
+.navbar-search input::placeholder {
+    color: #888;
+}
+
+.navbar-search button {
+    width: 50px;
+    height: 100%;
+
+    border: none;
+    background: transparent;
+
+    color: #8a74d8;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.3s ease;
+}
+
+.navbar-search button:hover {
+    color: #765fc8;
+}
+
+
+/* =====================================================
+   NAV ICONS
+===================================================== */
+
+.icon-item {
+    display: flex;
+    align-items: center;
+}
+
+.icon-link {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-link i {
+    color: rgb(64, 105, 177);
+    font-size: 21px;
+    transition: 0.3s ease;
+}
+
+.icon-link:hover i {
+    color: #8a74d8;
+    transform: scale(1.1);
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+.login-link {
+    color: #8a74d8 !important;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   PROFILE CONTAINER
+===================================================== */
+
+.profile-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+
+/* =====================================================
+   PROFILE BUTTON
+===================================================== */
+
+.profile-button {
+    width: 42px;
+    height: 42px;
+
+    padding: 0;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    flex-shrink: 0;
+}
+
+
+/* =====================================================
+   PROFILE IMAGE
+===================================================== */
+
+.navbar-profile-image {
+    width: 42px;
+    height: 42px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 2px solid #8a74d8;
+
+    display: block;
+
+    transition: 0.3s ease;
+}
+
+.profile-button:hover .navbar-profile-image {
+    transform: scale(1.06);
+}
+
+
+/* =====================================================
+   PROFILE LETTER
+===================================================== */
+
+.navbar-profile-letter {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #8a74d8;
+
+    color: #ffffff;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    border: 2px solid #8a74d8;
+
+    transition: 0.3s ease;
+}
+
+.profile-button:hover .navbar-profile-letter {
+    transform: scale(1.06);
+}
+
+
+/* =====================================================
+   PROFILE DROPDOWN MENU
+===================================================== */
+
+.profile-menu {
+    position: absolute;
+
+    top: 100%;
+    right: 0;
+
+    width: 210px;
+
+    margin-top: 8px;
+
+    padding: 8px 0;
+
+    background: #ffffff;
+
+    border: 1px solid #e7e2ef;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 30px rgba(60, 40, 90, 0.16);
+
+    z-index: 99999;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateY(6px);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s ease;
+}
+
+
+/* =====================================================
+   HOVER DROPDOWN
+===================================================== */
+
+.profile-dropdown:hover .profile-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+
+/*
+   IMPORTANT:
+   This invisible bridge prevents the dropdown from
+   disappearing while moving the mouse from the
+   profile icon to the menu.
+*/
+
+.profile-menu::before {
+    content: "";
+
+    position: absolute;
+
+    top: -9px;
+    right: 0;
+
+    width: 100%;
+    height: 10px;
+
+    background: transparent;
+}
+
+
+/* =====================================================
+   PROFILE MENU ITEM
+===================================================== */
+
+.profile-menu a,
+.profile-menu form button {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 11px 16px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #34313a;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* =====================================================
+   MENU ICON
+===================================================== */
+
+.profile-menu a i,
+.profile-menu form button i {
+    width: 18px;
+
+    text-align: center;
+
+    color: #8a74d8;
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   MENU HOVER
+===================================================== */
+
+.profile-menu a:hover,
+.profile-menu form button:hover {
+    background: #f5f2fc;
+
+    color: #8a74d8;
+}
+
+
+/* =====================================================
+   LOGOUT FORM
+===================================================== */
+
+.profile-menu form {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.profile-menu-divider {
+    height: 1px;
+
+    margin: 5px 12px;
+
+    background: #eeeaf4;
+}
+
+
+/* =====================================================
+   HERO SECTION
+===================================================== */
+
+.hero-section {
+    width: 100%;
+
+    min-height: 500px;
+
+    display: flex;
+
+    background: #8870d8;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   HERO CONTENT
+===================================================== */
+
+.hero-content {
+    width: 65%;
+
+    min-height: 500px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 50px 30px;
+}
+
+.hero-content h1 {
+    color: #ffffff;
+
+    font-size: clamp(35px, 5vw, 60px);
+
+    line-height: 1.15;
+
+    font-weight: 800;
+
+    margin-bottom: 38px;
+}
+
+
+/* =====================================================
+   SHOP BUTTON
+===================================================== */
+
+.shop-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 250px;
+
+    padding: 12px 40px;
+
+    border: 1px solid #ffffff;
+
+    border-radius: 30px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    transition: 0.3s ease;
+}
+
+.shop-btn:hover {
+    background: #ffffff;
+
+    color: #8870d8;
+}
+
+
+/* =====================================================
+   HERO IMAGE
+===================================================== */
+
+.hero-image {
+    width: 35%;
+
+    min-height: 500px;
+
+    overflow: hidden;
+}
+
+.hero-image img {
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+    width: 100%;
+
+    background: #ffffff;
+
+    color: #8a74d8;
+}
+
+.footer-container {
+    padding: 70px 7% 25px;
+}
+
+
+/* =====================================================
+   FOOTER LOGO
+===================================================== */
+
+.footer-logo img {
+    width: 160px;
+
+    height: 70px;
+
+    object-fit: contain;
+}
+
+
+/* =====================================================
+   FOOTER DESCRIPTION
+===================================================== */
+
+.footer-description {
+    max-width: 650px;
+
+    margin-top: 10px;
+
+    color: #555;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   FOOTER TITLE
+===================================================== */
+
+.footer-title {
+    margin-top: 28px;
+
+    margin-bottom: 10px;
+
+    color: #8a74d8;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+.footer-subtitle {
+    color: #555;
+
+    font-size: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   SOCIAL ICONS
+===================================================== */
+
+.social-icons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+}
+
+.social-icons a {
+    color: #8a74d8;
+
+    text-decoration: none;
+
+    font-size: 24px;
+
+    transition: 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #6c55c9;
+
+    transform: translateY(-3px);
+}
+
+
+/* =====================================================
+   CONTACT FORM
+===================================================== */
+
+.contact-form .form-control {
+    min-height: 45px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 7px;
+
+    padding: 12px 14px;
+
+    font-size: 14px;
+}
+
+.contact-form textarea.form-control {
+    resize: vertical;
+
+    min-height: 130px;
+}
+
+.contact-form .form-control:focus {
+    border-color: #8a74d8;
+
+    box-shadow:
+        0 0 0 2px rgba(138, 116, 216, 0.1);
+}
+
+.contact-form .form-control::placeholder {
+    color: #777;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   SEND BUTTON
+===================================================== */
+
+.send-btn {
+    padding: 10px 25px;
+
+    border-radius: 6px;
+}
+
+
+/* =====================================================
+   FOOTER LINE
+===================================================== */
+
+.footer-line {
+    border: none;
+
+    border-top: 1px solid #8a74d8;
+
+    width: 100%;
+
+    margin-top: 50px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   COPYRIGHT
+===================================================== */
+
+.copyright {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.copyright p {
+    margin: 0;
+
+    color: #666;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   POPUP MESSAGE
+===================================================== */
+
+.popup-message {
+    position: fixed;
+
+    top: 20px;
+    right: 20px;
+
+    min-width: 300px;
+    max-width: 400px;
+
+    padding: 15px 18px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    border-radius: 8px;
+
+    z-index: 999999;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.2);
+
+    animation: popupIn 0.4s ease;
+
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
+}
+
+.popup-message.success {
+    background: #d1e7dd;
+
+    color: #0f5132;
+
+    border-left: 5px solid #198754;
+}
+
+.popup-message.error {
+    background: #f8d7da;
+
+    color: #842029;
+
+    border-left: 5px solid #dc3545;
+}
+
+.popup-message button {
+    border: none;
+
+    background: transparent;
+
+    color: inherit;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    padding: 0;
+
+    line-height: 1;
+}
+
+
+@keyframes popupIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1199px) {
+
+    .custom-nav .navbar-nav {
+        gap: 3px;
+    }
+
+    .custom-nav .nav-link {
+        font-size: 15px;
+
+        padding-left: 9px !important;
+        padding-right: 9px !important;
+    }
+
+    .navbar-search {
+        width: 220px;
+    }
+
+    .hero-content h1 {
+        font-size: 46px;
+    }
+}
+
+
+/* =====================================================
+   BOOTSTRAP MOBILE BREAKPOINT
+===================================================== */
+
+@media (max-width: 991.98px) {
+
+    /* -------------------------
+       NAVBAR
+    ------------------------- */
+
+    .custom-nav .navbar {
+        min-height: 75px;
+
+        padding: 8px 0;
+    }
+
+    .logo img {
+        width: 140px;
+
+        height: 60px;
+    }
+
+    .navbar-toggler {
+        border: 1px solid #8a74d8;
+
+        padding: 6px 9px;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow:
+            0 0 0 2px rgba(138, 116, 216, 0.2);
+    }
+
+    .navbar-collapse {
+        margin-top: 10px;
+
+        padding: 12px 0;
+
+        border-top: 1px solid #eeeeee;
+    }
+
+    .custom-nav .navbar-nav {
+        width: 100%;
+
+        align-items: stretch;
+
+        gap: 0;
+    }
+
+    .custom-nav .nav-item {
+        width: 100%;
+
+        margin: 0;
+
+        padding: 3px 0;
+    }
+
+    .custom-nav .nav-link {
+        width: 100%;
+
+        padding: 10px 5px !important;
+
+        font-size: 16px;
+    }
+
+
+    /* -------------------------
+       SEARCH
+    ------------------------- */
+
+    .search-item {
+        width: 100% !important;
+
+        margin: 8px 0;
+    }
+
+    .search-wrapper {
+        width: 100%;
+    }
+
+    .navbar-search {
+        width: 100%;
+
+        height: 44px;
+    }
+
+
+    /* -------------------------
+       ICONS
+    ------------------------- */
+
+    .icon-item {
+        width: auto !important;
+
+        display: inline-flex;
+
+        margin-right: 15px;
+    }
+
+    .icon-link {
+        width: auto !important;
+    }
+
+
+    /* -------------------------
+       PROFILE
+    ------------------------- */
+
+    .profile-dropdown {
+        width: auto !important;
+
+        display: inline-flex;
+
+        margin-top: 5px;
+
+        margin-right: 10px;
+    }
+
+    .profile-menu {
+        top: 100%;
+
+        right: 0;
+
+        margin-top: 8px;
+    }
+
+
+    /* -------------------------
+       HERO
+    ------------------------- */
+
+    .hero-section {
+        min-height: 450px;
+    }
+
+    .hero-content {
+        width: 60%;
+
+        min-height: 450px;
+
+        padding: 35px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .hero-image {
+        width: 40%;
+
+        min-height: 450px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 767.98px) {
+
+    /* -------------------------
+       NAVBAR
+    ------------------------- */
+
+    .custom-nav .navbar {
+        min-height: 70px;
+    }
+
+    .logo img {
+        width: 125px;
+
+        height: 55px;
+    }
+
+    .navbar-toggler {
+        padding: 5px 8px;
+    }
+
+
+    /* -------------------------
+       PROFILE
+    ------------------------- */
+
+    .profile-dropdown {
+        width: 100% !important;
+
+        display: flex;
+
+        justify-content: flex-start;
+
+        margin: 5px 0 0;
+    }
+
+    .profile-button {
+        width: 42px;
+
+        height: 42px;
+    }
+
+    /*
+       On mobile the menu is positioned
+       inside the opened navbar.
+    */
+
+    .profile-menu {
+        position: absolute;
+
+        top: 50px;
+
+        left: 0;
+
+        right: auto;
+
+        width: 220px;
+
+        max-width: calc(100vw - 30px);
+
+        margin-top: 0;
+    }
+
+
+    /* -------------------------
+       HERO
+    ------------------------- */
+
+    .hero-section {
+        flex-direction: column;
+
+        min-height: auto;
+    }
+
+    .hero-content {
+        width: 100%;
+
+        min-height: 330px;
+
+        padding: 45px 20px 35px;
+    }
+
+    .hero-content h1 {
+        font-size: 34px;
+
+        line-height: 1.2;
+
+        margin-bottom: 30px;
+    }
+
+    .shop-btn {
+        min-width: 210px;
+
+        padding: 11px 30px;
+
+        font-size: 17px;
+    }
+
+    .hero-image {
+        width: 100%;
+
+        height: 400px;
+
+        min-height: 400px;
+    }
+
+    .hero-image img {
+        object-position: center;
+    }
+
+
+    /* -------------------------
+       FOOTER
+    ------------------------- */
+
+    .footer-container {
+        padding: 50px 25px 20px;
+    }
+
+    .footer-logo img {
+        width: 140px;
+
+        height: 60px;
+    }
+
+    .footer-description {
+        font-size: 14px;
+    }
+
+    .footer-title {
+        font-size: 21px;
+    }
+
+    .copyright {
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+        gap: 8px;
+    }
+
+
+    /* -------------------------
+       POPUP
+    ------------------------- */
+
+    .popup-message {
+        top: 15px;
+
+        right: 15px;
+        left: 15px;
+
+        min-width: auto;
+        max-width: none;
+
+        font-size: 14px;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    /* -------------------------
+       NAVBAR
+    ------------------------- */
+
+    .custom-nav .navbar {
+        padding-left: 10px;
+
+        padding-right: 10px;
+    }
+
+    .logo img {
+        width: 115px;
+
+        height: 50px;
+    }
+
+
+    /* -------------------------
+       PROFILE
+    ------------------------- */
+
+    .profile-menu {
+        width: calc(100vw - 30px);
+
+        max-width: 220px;
+    }
+
+
+    /* -------------------------
+       HERO
+    ------------------------- */
+
+    .hero-content {
+        min-height: 300px;
+
+        padding: 35px 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 28px;
+
+        line-height: 1.2;
+    }
+
+    .shop-btn {
+        min-width: 190px;
+
+        padding: 10px 25px;
+
+        font-size: 16px;
+    }
+
+    .hero-image {
+        height: 330px;
+
+        min-height: 330px;
+    }
+
+
+    /* -------------------------
+       FOOTER
+    ------------------------- */
+
+    .footer-container {
+        padding: 40px 18px 20px;
+    }
+
+    .social-icons {
+        gap: 18px;
+    }
+
+    .social-icons a {
+        font-size: 21px;
+    }
+}
+
+
+/* =====================================================
+   EXTRA SMALL MOBILE
+===================================================== */
+
+@media (max-width: 360px) {
+
+    .logo img {
+        width: 105px;
+
+        height: 45px;
+    }
+
+    .hero-content h1 {
+        font-size: 25px;
+    }
+
+    .hero-image {
+        height: 300px;
+
+        min-height: 300px;
+    }
+
+    .shop-btn {
+        min-width: 175px;
+    }
+
+    .profile-menu {
+        width: 200px;
+    }
+}

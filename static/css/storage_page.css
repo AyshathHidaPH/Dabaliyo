@@ -1,0 +1,43 @@
+body {
+    background: #ffff;
+    color: #8a74d8;
+}
+
+.card-dark {
+    background: #f6f5f9;
+    border: none;
+    color: #8a74d8;
+    border-radius: 15px;
+}
+
+.table-dark-custom {
+    background: #f6f6f9;
+    border-radius: 15px;
+}
+.back-dashboard-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 16px;
+
+    background: #8a74d8;
+    color: white;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: 0.2s ease;
+}
+
+.back-dashboard-btn:hover {
+    background: #735bc5;
+    color: white;
+}
+
+.back-dashboard-btn i {
+    font-size: 14px;
+}

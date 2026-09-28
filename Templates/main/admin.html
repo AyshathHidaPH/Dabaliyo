@@ -1,0 +1,111 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Admin Login | Dabaliyo</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-login-wrapper">
+
+    <div class="admin-card">
+
+        <!-- Logo / Heading -->
+        <div class="admin-header">
+            <h1>Admin Login</h1>
+            <p>Login to access the Dabaliyo admin dashboard</p>
+        </div>
+
+
+        <!-- Login Form -->
+        <form action="{% url 'admin_panel' %}" method="POST">
+
+            {% csrf_token %}
+
+            <!-- Username -->
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="admin-input"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Password -->
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="admin-input"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Error Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="login-message">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+            <!-- Login Button -->
+            <button
+                type="submit"
+                class="admin-login-btn">
+                Sign In
+            </button>
+
+        </form>
+
+
+        <!-- Demo -->
+        <div class="demo-box">
+            <strong>Demo Login</strong>
+            <br>
+            Username: admin
+            <br>
+            Password: admin123
+        </div>
+
+
+        <!-- Back -->
+        <div class="back-store">
+            <a href="{% url 'home' %}">
+                ← Back to Store
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title> storage table pagePage </title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/storage_page.css' %}">
+{% endblock %}
+{% block content %}
+
+
+<div class="container py-5 my-5">
+    <a href="{% url 'dashboard' %}" class="text-decoration-none m-1">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Dashboard
+    </a>
+    <h2 class="fw-bold dashboard-title mb-4">storage table page</h2>
+<a href="{% url 'storage_add' %}" class="btn btn-primary m-4">
+    Add storage
+</a>
+
+    <div class="table-responsive dashboard-card">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>SIZE</th>
+                    <th>DELETE</th>
+                    <th>EDIT</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for storage in storages %}
+
+                <tr>
+                    <td>{{ storage.size }}</td>
+                     <td>
+                        <a href="{% url 'storage_delete' storage.id %}">
+                            <i class="fa-solid fa-trash-can text-danger"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'storage_edit' storage.id %}">
+                            <i class="fa-solid fa-user-pen text-primary"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
+    </div>
+</div>
+</form>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title> Login Page </title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block content %}
+
+
+<div class="container py-5 my-5">
+    <div class="auth-card">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold">Welcome to Dabaliyo</h1>
+            <p class="subtitle">Sign in or create an account to continue</p>
+        </div>
+        {% comment %} {% if messages %}
+        {% for message in messages %}
+        <div style="color: rgb(207, 96, 96); size: 5px; text-align: center; padding: 10px;">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %} {% endcomment %}
+
+        <!-- Tabs -->
+        <ul class="nav nav-pills auth-tabs mb-4 nav-fill">
+            <li class="nav-item">
+                <div class="nav-link active" data-bs-toggle="pill" data-bs-target="#login">
+                    Login
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div class="nav-link" data-bs-toggle="pill" data-bs-target="#register">
+                    Register
+                </div>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Login -->
+
+            <div class="tab-pane fade show active" id="login">
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" placeholder="Enter your username" required
+                            name="username">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Enter your password" required
+                            name="password">
+                    </div>
+                    <button class="btn auth-btn w-100 mb-4">
+                        Sign In
+                    </button>
+                </form>
+                <div class="demo-box mb-4">
+                    <div>Demo credentials:</div>
+                    <div>Email: demo@dabaliyo.com</div>
+                    <div>Password: demo123</div>
+                </div>
+            </div>
+
+            <!-- Register -->
+            <div class="tab-pane fade" id="register">
+
+                <form action="{% url 'register' %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" placeholder="Enter your User name" required
+                            name="username">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="Enter your email" required name="email">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Create a password" required
+                            name="password">
+                    </div>
+
+                    <button class="btn auth-btn w-100">
+                        Create Account
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="#" class="text-secondary text-decoration-none">
+                Admin Login
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

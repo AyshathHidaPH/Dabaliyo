@@ -1,0 +1,475 @@
+/* =========================================================
+   ORDER DETAIL PAGE
+========================================================= */
+
+.order-detail-page {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    padding: 40px 20px 70px;
+    background: #f8f7fc;
+    box-sizing: border-box;
+}
+
+.order-detail-container {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.order-detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.order-detail-header h1 {
+    margin: 0;
+    color: #28242f;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.order-detail-header p {
+    margin: 7px 0 0;
+    color: #85808c;
+    font-size: 13px;
+}
+
+.back-orders {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 8px;
+    color: #765fc7;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.back-orders:hover {
+    color: #5d48ae;
+}
+
+
+/* =========================================================
+   COMMON CARD
+========================================================= */
+
+.order-info-card,
+.order-items-card,
+.shipping-card,
+.order-summary-card {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e5e1ed;
+    border-radius: 13px;
+    box-shadow: 0 5px 25px rgba(60, 45, 90, 0.05);
+}
+
+
+/* =========================================================
+   ORDER INFO
+========================================================= */
+
+.order-info-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.order-info-top > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.order-label {
+    color: #85808c;
+    font-size: 11px;
+}
+
+.order-info-top strong {
+    color: #302c37;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-height: 27px;
+    padding: 0 12px;
+    border-radius: 20px;
+    background: #f0ecfb;
+    color: #806bd0;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card-title i {
+    color: #8a74d8;
+    font-size: 16px;
+}
+
+.card-title h2 {
+    margin: 0;
+    color: #302c37;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ORDER PRODUCTS
+========================================================= */
+
+.items-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-product {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eeeaf2;
+}
+
+.order-product:first-child {
+    padding-top: 0;
+}
+
+.order-product:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+
+/* PRODUCT IMAGE */
+
+.product-image {
+    width: 75px;
+    min-width: 75px;
+    height: 75px;
+    overflow: hidden;
+    border: 1px solid #eeeaf2;
+    border-radius: 9px;
+    background: #f7f5fa;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.no-product-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #aaa4b5;
+    font-size: 24px;
+}
+
+
+/* PRODUCT DETAILS */
+
+.product-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.product-details h3 {
+    margin: 0 0 7px;
+    color: #302c37;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.product-details p {
+    margin: 3px 0;
+    color: #85808c;
+    font-size: 12px;
+}
+
+
+/* ITEM TOTAL */
+
+.item-total {
+    color: #806bd0;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   SHIPPING ADDRESS
+========================================================= */
+
+.shipping-details h3 {
+    margin: 0 0 12px;
+    color: #302c37;
+    font-size: 15px;
+}
+
+.shipping-details p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 7px 0;
+    color: #65606b;
+    font-size: 12px;
+}
+
+.shipping-details p i {
+    width: 14px;
+    color: #8a74d8;
+    text-align: center;
+}
+
+.shipping-details .address-line {
+    display: block;
+    margin-top: 14px;
+    color: #514c57;
+    line-height: 1.7;
+}
+
+.address-type {
+    display: inline-flex;
+    margin-top: 8px;
+    padding: 4px 9px;
+    border-radius: 5px;
+    background: #f0edf9;
+    color: #7561bd;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   ORDER SUMMARY
+========================================================= */
+
+.summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 13px;
+    color: #77727f;
+    font-size: 13px;
+}
+
+.summary-row strong {
+    color: #35313c;
+    font-size: 13px;
+}
+
+.summary-divider {
+    width: 100%;
+    height: 1px;
+    margin: 20px 0;
+    background: #ece9f0;
+}
+
+.summary-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    color: #29252f;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.summary-total strong {
+    color: #8a74d8;
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   EMPTY ITEMS
+========================================================= */
+
+.no-items {
+    padding: 30px 10px;
+    text-align: center;
+    color: #8d8795;
+}
+
+.no-items i {
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.no-items p {
+    margin: 0;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .order-detail-page {
+        padding: 30px 15px 50px;
+    }
+
+    .order-detail-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .order-detail-header h1 {
+        font-size: 24px;
+    }
+
+    .back-orders {
+        margin-top: 0;
+    }
+
+    .order-info-top {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .order-detail-page {
+        padding: 20px 12px 40px;
+    }
+
+    .order-info-card,
+    .order-items-card,
+    .shipping-card,
+    .order-summary-card {
+        padding: 17px 15px;
+        border-radius: 11px;
+    }
+
+    .order-detail-header h1 {
+        font-size: 22px;
+    }
+
+    .order-detail-header p {
+        font-size: 12px;
+    }
+
+    .order-info-top {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .card-title {
+        margin-bottom: 16px;
+    }
+
+    .card-title h2 {
+        font-size: 16px;
+    }
+
+    .order-product {
+        gap: 10px;
+    }
+
+    .product-image {
+        width: 60px;
+        min-width: 60px;
+        height: 60px;
+    }
+
+    .product-details h3 {
+        font-size: 12px;
+    }
+
+    .product-details p {
+        font-size: 11px;
+    }
+
+    .item-total {
+        font-size: 12px;
+    }
+
+    .summary-total strong {
+        font-size: 18px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .order-detail-page {
+        padding-left: 9px;
+        padding-right: 9px;
+    }
+
+    .order-info-card,
+    .order-items-card,
+    .shipping-card,
+    .order-summary-card {
+        padding: 15px 12px;
+    }
+
+    .product-image {
+        width: 52px;
+        min-width: 52px;
+        height: 52px;
+    }
+
+    .order-product {
+        gap: 8px;
+    }
+
+    .item-total {
+        font-size: 11px;
+    }
+
+}

@@ -1,0 +1,635 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Add Address Page</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/add_address.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="address-page">
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="address-header">
+
+        <div class="header-left">
+
+            <a href="{% url 'select_address' %}" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+
+            <div>
+                <h1>Add New Address</h1>
+                <p>Enter your delivery details</p>
+            </div>
+
+        </div>
+
+       
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="address-container">
+
+        <div class="address-card">
+
+            <!-- TITLE -->
+
+            <div class="form-heading">
+
+                <div class="heading-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+
+                <div>
+                    <h2>Delivery Address</h2>
+                    <p>Please enter your complete delivery information</p>
+                </div>
+
+            </div>
+
+
+            <!-- FORM -->
+
+            <form method="POST"
+                  action="{% url 'add_address' %}"
+                  class="address-form">
+
+                {% csrf_token %}
+
+
+                <!-- ================= PERSONAL DETAILS ================= -->
+
+                <div class="section-title">
+                    <span>01</span>
+                    <div>
+                        <h3>Personal Details</h3>
+                        <p>Who should we contact?</p>
+                    </div>
+                </div>
+
+
+                <div class="form-grid">
+
+                    <!-- FULL NAME -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                            <span>*</span>
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-regular fa-user"></i>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                required
+                                autocomplete="name"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Mobile Number
+                            <span>*</span>
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="Enter mobile number"
+                                required
+                                maxlength="15"
+                                autocomplete="tel"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group full-width">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+                        <small>
+                            We'll use this email for order updates.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= ADDRESS DETAILS ================= -->
+
+                <div class="section-title address-section">
+
+                    <span>02</span>
+
+                    <div>
+                        <h3>Address Details</h3>
+                        <p>Where should we deliver your order?</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <!-- COMPLETE ADDRESS -->
+
+                    <div class="form-group full-width">
+
+                        <label for="address">
+                            Complete Address
+                            <span>*</span>
+                        </label>
+
+                        <div class="textarea-wrapper">
+
+                            <i class="fa-solid fa-house"></i>
+
+                            <textarea
+                                id="address"
+                                name="address"
+                                rows="4"
+                                placeholder="House / Flat / Building name, Street, Area..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- LANDMARK -->
+
+                    <div class="form-group full-width">
+
+                        <label for="landmark">
+                            Landmark
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-location-crosshairs"></i>
+
+                            <input
+                                type="text"
+                                id="landmark"
+                                name="landmark"
+                                placeholder="Nearby landmark (optional)"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CITY -->
+
+                    <div class="form-group">
+
+                        <label for="city">
+                            City
+                            <span>*</span>
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-city"></i>
+
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                placeholder="Enter city"
+                                required
+                                autocomplete="address-level2"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATE -->
+
+                    <div class="form-group">
+
+                        <label for="state">
+                            State
+                            <span>*</span>
+                        </label>
+
+                        <div class="input-wrapper select-wrapper">
+
+                            <i class="fa-solid fa-map"></i>
+
+                            <select
+                                id="state"
+                                name="state"
+                                required
+                            >
+
+                                <option value="">
+                                    Select State
+                                </option>
+
+                                <option value="Andhra Pradesh">
+                                    Andhra Pradesh
+                                </option>
+
+                                <option value="Arunachal Pradesh">
+                                    Arunachal Pradesh
+                                </option>
+
+                                <option value="Assam">
+                                    Assam
+                                </option>
+
+                                <option value="Bihar">
+                                    Bihar
+                                </option>
+
+                                <option value="Chhattisgarh">
+                                    Chhattisgarh
+                                </option>
+
+                                <option value="Goa">
+                                    Goa
+                                </option>
+
+                                <option value="Gujarat">
+                                    Gujarat
+                                </option>
+
+                                <option value="Haryana">
+                                    Haryana
+                                </option>
+
+                                <option value="Himachal Pradesh">
+                                    Himachal Pradesh
+                                </option>
+
+                                <option value="Jharkhand">
+                                    Jharkhand
+                                </option>
+
+                                <option value="Karnataka">
+                                    Karnataka
+                                </option>
+
+                                <option value="Kerala">
+                                    Kerala
+                                </option>
+
+                                <option value="Madhya Pradesh">
+                                    Madhya Pradesh
+                                </option>
+
+                                <option value="Maharashtra">
+                                    Maharashtra
+                                </option>
+
+                                <option value="Manipur">
+                                    Manipur
+                                </option>
+
+                                <option value="Meghalaya">
+                                    Meghalaya
+                                </option>
+
+                                <option value="Mizoram">
+                                    Mizoram
+                                </option>
+
+                                <option value="Nagaland">
+                                    Nagaland
+                                </option>
+
+                                <option value="Odisha">
+                                    Odisha
+                                </option>
+
+                                <option value="Punjab">
+                                    Punjab
+                                </option>
+
+                                <option value="Rajasthan">
+                                    Rajasthan
+                                </option>
+
+                                <option value="Sikkim">
+                                    Sikkim
+                                </option>
+
+                                <option value="Tamil Nadu">
+                                    Tamil Nadu
+                                </option>
+
+                                <option value="Telangana">
+                                    Telangana
+                                </option>
+
+                                <option value="Tripura">
+                                    Tripura
+                                </option>
+
+                                <option value="Uttar Pradesh">
+                                    Uttar Pradesh
+                                </option>
+
+                                <option value="Uttarakhand">
+                                    Uttarakhand
+                                </option>
+
+                                <option value="West Bengal">
+                                    West Bengal
+                                </option>
+
+                                <option value="Delhi">
+                                    Delhi
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PINCODE -->
+
+                    <div class="form-group">
+
+                        <label for="pincode">
+                            Pincode
+                            <span>*</span>
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-map-pin"></i>
+
+                            <input
+                                type="text"
+                                id="pincode"
+                                name="pincode"
+                                placeholder="6-digit pincode"
+                                required
+                                maxlength="6"
+                                pattern="[0-9]{6}"
+                                inputmode="numeric"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= ADDRESS TYPE ================= -->
+
+                <div class="section-title address-section">
+
+                    <span>03</span>
+
+                    <div>
+                        <h3>Address Type</h3>
+                        <p>Choose a label for this address</p>
+                    </div>
+
+                </div>
+
+
+                <div class="address-types">
+
+                    <label class="address-type-option">
+
+                        <input
+                            type="radio"
+                            name="address_type"
+                            value="Home"
+                            checked
+                        >
+
+                        <span class="type-content">
+
+                            <span class="type-icon">
+                                <i class="fa-solid fa-house"></i>
+                            </span>
+
+                            <span>
+                                <strong>Home</strong>
+                                <small>Use for home delivery</small>
+                            </span>
+
+                        </span>
+
+                    </label>
+
+
+                    <label class="address-type-option">
+
+                        <input
+                            type="radio"
+                            name="address_type"
+                            value="Office"
+                        >
+
+                        <span class="type-content">
+
+                            <span class="type-icon">
+                                <i class="fa-solid fa-building"></i>
+                            </span>
+
+                            <span>
+                                <strong>Office</strong>
+                                <small>Use for office delivery</small>
+                            </span>
+
+                        </span>
+
+                    </label>
+
+
+                    <label class="address-type-option">
+
+                        <input
+                            type="radio"
+                            name="address_type"
+                            value="Other"
+                        >
+
+                        <span class="type-content">
+
+                            <span class="type-icon">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </span>
+
+                            <span>
+                                <strong>Other</strong>
+                                <small>Use another location</small>
+                            </span>
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- ================= DEFAULT ADDRESS ================= -->
+
+                <div class="default-address">
+
+                    <label class="checkbox-container">
+
+                        <input
+                            type="checkbox"
+                            name="is_default"
+                        >
+
+                        <span class="custom-checkbox">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span class="checkbox-text">
+
+                            <strong>Set as default address</strong>
+
+                            <small>
+                                Use this address automatically for
+                                future orders.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- ================= BUTTONS ================= -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="{% url 'select_address' %}"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        Save Address
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- ================= SECURITY NOTE ================= -->
+
+        <div class="secure-note">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <div>
+                <strong>Your information is secure</strong>
+
+                <p>
+                    Your address details are used only for
+                    delivery and order-related communication.
+                </p>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+{% endblock %}
+
+<!-- ================= PINCODE VALIDATION ================= -->
+
+<script>
+
+    const pincode = document.getElementById("pincode");
+
+    pincode.addEventListener("input", function () {
+
+        this.value = this.value.replace(/\D/g, "").slice(0, 6);
+
+    });
+
+
+    const phone = document.getElementById("phone");
+
+    phone.addEventListener("input", function () {
+
+        this.value = this.value.replace(/\D/g, "").slice(0, 15);
+
+    });
+
+</script>
+
+</body>
+</html>

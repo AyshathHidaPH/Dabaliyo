@@ -1,0 +1,56 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Color Edit Page</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/color_edit.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5 my-5">
+    <div class="row justify-content-center py-5">
+        <div class="col-md-6 col-lg-4">
+            <div class="form-card">
+
+                <h3 class="form-title">Color Edit</h3>
+
+                <form action="{% url 'color_edit' color.id %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label>Color Name</label>
+                        <input
+                            type="text"
+                            class="form-control custom-input"
+                            name="color"
+                            value="{{ color.color }}"
+                            placeholder="Enter color"
+                        >
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Color Code</label>
+                        <input
+                            type="text"
+                            class="form-control custom-input"
+                            name="code"
+                            value="{{ color.color_code }}"
+                            placeholder="#FFFFFF"
+                        >
+                    </div>
+
+                    <button type="submit" class="btn form-btn w-100">
+                        Update Color
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

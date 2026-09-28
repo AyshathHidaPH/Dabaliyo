@@ -1,0 +1,366 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Products - Dabaliyo</title>
+{% endblock %}
+
+
+{% block style %}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/productpage.css' %}">
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="products-page">
+
+
+    <!-- =========================================
+         PAGE HEADER
+    ========================================== -->
+
+    <section class="products-header">
+
+        <h1>Products</h1>
+
+        <p>
+            Browse our collection of premium smartphones
+        </p>
+
+    </section>
+
+
+
+    <!-- =========================================
+         FILTER AREA
+    ========================================== -->
+
+    <section class="products-filter">
+
+        <form method="GET" action="{% url 'productpage' %}" class="filter-form">
+
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    name="q"
+                    value="{{ search_query }}"
+                    placeholder="Search products..."
+                    autocomplete="off"
+                >
+
+                <button type="submit" class="search-button">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- SORT -->
+
+            <div class="sort-box">
+
+                <select name="sort" onchange="this.form.submit()">
+
+                    <option value="default"
+                        {% if sort == 'default' %}selected{% endif %}>
+                        Sort by: Default
+                    </option>
+
+                    <option value="price_low"
+                        {% if sort == 'price_low' %}selected{% endif %}>
+                        Price: Low to High
+                    </option>
+
+                    <option value="price_high"
+                        {% if sort == 'price_high' %}selected{% endif %}>
+                        Price: High to Low
+                    </option>
+
+                    <option value="name_az"
+                        {% if sort == 'name_az' %}selected{% endif %}>
+                        Name: A to Z
+                    </option>
+
+                    <option value="name_za"
+                        {% if sort == 'name_za' %}selected{% endif %}>
+                        Name: Z to A
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- CLEAR -->
+
+            <a href="{% url 'productpage' %}" class="clear-button">
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+                Clear
+
+            </a>
+
+
+        </form>
+
+
+
+        <!-- =========================================
+             BRAND BUTTONS
+        ========================================== -->
+
+        <div class="brand-buttons">
+
+
+            <!-- ALL -->
+
+            <a
+                href="{% url 'productpage' %}"
+                class="brand-button
+                {% if not selected_brand %}active{% endif %}"
+            >
+                All
+            </a>
+
+
+            <!-- BRANDS -->
+
+            {% for brand in available_brands %}
+
+                <a
+                    href="?brand={{ brand.name|urlencode }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}"
+                    class="brand-button
+                    {% if selected_brand|lower == brand.name|lower %}
+                        active
+                    {% endif %}"
+                >
+
+                    {{ brand.name }}
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================
+         RESULT COUNT
+    ========================================== -->
+
+    <div class="product-count">
+
+        {% if search_query %}
+
+            Showing {{ products|length }}
+            result{{ products|length|pluralize }}
+            for "<strong>{{ search_query }}</strong>"
+
+        {% elif selected_brand %}
+
+            Showing {{ products|length }}
+            product{{ products|length|pluralize }}
+            from <strong>{{ selected_brand }}</strong>
+
+        {% else %}
+
+            Showing {{ products|length }} Products
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- =========================================
+         PRODUCTS
+    ========================================== -->
+
+    <section class="all-products-section">
+
+        <h2>All Products</h2>
+
+
+        {% if products %}
+
+            <div class="products-grid">
+
+
+                {% for product in products %}
+
+                    <div class="product-card">
+
+
+                        <!-- PRODUCT IMAGE -->
+
+                        <div class="product-image-container">
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{{ product.image.url }}"
+                                    alt="{{ product.name }}"
+                                    class="product-image"
+                                >
+
+                            {% else %}
+
+                                <div class="no-image">
+                                    No Image
+                                </div>
+
+                            {% endif %}
+
+
+                            
+
+                        </div>
+
+
+
+                        <!-- PRODUCT INFORMATION -->
+
+                        <div class="product-info">
+
+
+                            <!-- BRAND -->
+
+                            {% if product.brand %}
+
+                                <p class="product-brand">
+                                    {{ product.brand.name }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <!-- NAME -->
+
+                            <h3 class="product-name">
+
+                                {{ product.name }}
+
+                            </h3>
+
+
+                            <!-- PRICE -->
+
+                            <div class="product-price">
+
+                                {% if product.discount_price %}
+
+                                    <span class="discount-price">
+                                        ₹{{ product.discount_price|floatformat:0 }}
+                                    </span>
+
+                                    <span class="original-price">
+                                        ₹{{ product.price|floatformat:0 }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="discount-price">
+                                        ₹{{ product.price|floatformat:0 }}
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- VIEW PRODUCT -->
+
+                            <a
+                                href="{% url 'productdescription' product.id %}"
+                                class="view-product-button"
+                            >
+
+                                View Product
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- =========================================
+                 NO PRODUCTS
+            ========================================== -->
+
+            <div class="no-products">
+
+                <i class="fa-solid fa-mobile-screen-button"></i>
+
+                {% if search_query %}
+
+                    <h3>No products found</h3>
+
+                    <p>
+                        No products match "{{ search_query }}".
+                    </p>
+
+                    <a href="{% url 'productpage' %}">
+                        View All Products
+                    </a>
+
+                {% elif selected_brand %}
+
+                    <h3>No products found</h3>
+
+                    <p>
+                        There are no products available
+                        for {{ selected_brand }}.
+                    </p>
+
+                    <a href="{% url 'productpage' %}">
+                        View All Products
+                    </a>
+
+                {% else %}
+
+                    <h3>No products available</h3>
+
+                    <p>
+                        Please check back later.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+        {% endif %}
+
+    </section>
+
+
+</div>
+
+
+{% endblock %}

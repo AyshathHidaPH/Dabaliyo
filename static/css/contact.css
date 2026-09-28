@@ -1,0 +1,63 @@
+body {
+    background: #f8f9fa;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-header h2 {
+    font-weight: 700;
+}
+
+.contact-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 15px;
+    background: #fff;
+    padding: 30px;
+    height: 100%;
+    transition: .3s;
+}
+
+.contact-card:hover {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, .08);
+}
+
+.icon-circle {
+    width: 55px;
+    height: 55px;
+    background: #f3edff;
+    color: #9b7df2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    font-size: 20px;
+}
+
+.form-card,
+.info-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.btn-purple {
+    background: #9b7df2;
+    color: white;
+    border: none;
+}
+
+.btn-purple:hover {
+    background: #8665e8;
+    color: white;
+}
+
+.hours-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}

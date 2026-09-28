@@ -1,0 +1,61 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title> brand table Page </title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/brand_page.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container py-5 my-5">
+    <a href="{% url 'dashboard' %}" class="text-decoration-none m-1">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Dashboard
+    </a>
+    <h2 class="fw-bold dashboard-title mb-4">brand table page</h2>
+    <a href="{% url 'brand_add' %}" class="btn btn-primary m-4">
+        Add brand
+    </a>
+    <div class="table-responsive table-dark-custom dashboard-card">
+        <table class="table align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>IMAGE</th>
+                    <th>BRAND</th>
+                    <th>DELETE</th>
+                    <th>EDIT</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for brand in brands %}
+                <tr>
+                    <td>
+                        {% if brand.logo %}
+                        <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="brand-img">
+                        {% else %}
+                        <img src="{% static 'images/iphone.jpg' %}" class="brand-img " alt="No Image">
+                        {% endif %}
+                    </td>
+                    <td>{{ brand.name }}</td>
+                    <td>
+                        <a href="{% url 'brand_delete' brand.id %}">
+                            <i class="fa-solid fa-trash-can text-danger"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'brand_edit' brand.id %}">
+                            <i class="fa-solid fa-user-pen text-primary"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

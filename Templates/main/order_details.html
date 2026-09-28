@@ -1,0 +1,383 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Order #{{ order.id }} | Admin | Dabaliyo</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/admin_orders.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<main class="admin-detail-page">
+
+    <div class="admin-detail-container">
+
+
+        <!-- ==========================================
+             HEADER
+        =========================================== -->
+
+        <div class="admin-detail-header">
+
+            <div>
+
+                <h1>
+                    Order #{{ order.id }}
+                </h1>
+
+                <p>
+                    Placed on
+                    {{ order.created_at|date:"d M Y, h:i A" }}
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'admin_orders' %}"
+                class="admin-back-btn"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Orders
+
+            </a>
+
+        </div>
+
+
+        <!-- ==========================================
+             ORDER STATUS
+        =========================================== -->
+
+        <div class="admin-detail-card">
+
+            <h2>
+                Order Status
+            </h2>
+
+
+            <div class="admin-detail-status-row">
+
+
+                <div>
+
+                    <span class="section-label">
+                        Current Status
+                    </span>
+
+                    <strong class="current-status">
+                        {{ order.status }}
+                    </strong>
+
+                </div>
+
+
+                <!-- STATUS UPDATE -->
+
+                <form
+                    method="POST"
+                    action="{% url 'update_order_status' order.id %}"
+                    class="status-form"
+                >
+
+                    {% csrf_token %}
+
+
+                    <select name="status">
+
+                        {% for value, label in order.STATUS_CHOICES %}
+
+                        <option
+                            value="{{ value }}"
+                            {% if order.status == value %}
+                                selected
+                            {% endif %}
+                        >
+
+                            {{ label }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+
+                    <button type="submit">
+
+                        <i class="fa-solid fa-check"></i>
+
+                        Update Status
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             CUSTOMER INFORMATION
+        =========================================== -->
+
+        <div class="admin-detail-card">
+
+            <h2>
+                Customer Information
+            </h2>
+
+
+            <div class="customer-detail">
+
+
+                <div class="customer-avatar large">
+
+                    {{ order.user.username|first|upper }}
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        {{ order.user.get_full_name|default:order.user.username }}
+                    </strong>
+
+                    <span>
+                        Username:
+                        {{ order.user.username }}
+                    </span>
+
+                    <span>
+                        Email:
+                        {{ order.user.email }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             ORDERED PRODUCTS
+        =========================================== -->
+
+        <div class="admin-detail-card">
+
+            <h2>
+                Ordered Products
+            </h2>
+
+
+            {% for item in order.items.all %}
+
+            <div class="admin-detail-product">
+
+
+                <!-- IMAGE -->
+
+                <div class="admin-detail-product-image">
+
+                    {% if item.product and item.product.image %}
+
+                        <img
+                            src="{{ item.product.image.url }}"
+                            alt="{{ item.product_name }}"
+                        >
+
+                    {% else %}
+
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- INFO -->
+
+                <div class="admin-detail-product-info">
+
+                    <strong>
+                        {{ item.product_name }}
+                    </strong>
+
+                    <span>
+                        Quantity:
+                        {{ item.quantity }}
+                    </span>
+
+                    <span>
+                        Price:
+                        ₹{{ item.price|floatformat:2 }}
+                    </span>
+
+                </div>
+
+
+                <!-- TOTAL -->
+
+                <strong class="admin-detail-product-total">
+
+                    ₹{{ item.total|floatformat:2 }}
+
+                </strong>
+
+
+            </div>
+
+            {% empty %}
+
+            <p>
+                No products found.
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ==========================================
+             DELIVERY ADDRESS
+        =========================================== -->
+
+        {% if order.address %}
+
+        <div class="admin-detail-card">
+
+            <h2>
+                Delivery Address
+            </h2>
+
+
+            <div class="admin-address">
+
+                <strong>
+                    {{ order.address.name }}
+                </strong>
+
+
+                <span>
+                    Phone:
+                    {{ order.address.phone }}
+                </span>
+
+
+                {% if order.address.email %}
+
+                <span>
+                    Email:
+                    {{ order.address.email }}
+                </span>
+
+                {% endif %}
+
+
+                <span>
+                    {{ order.address.address }}
+                </span>
+
+
+                {% if order.address.landmark %}
+
+                <span>
+                    {{ order.address.landmark }}
+                </span>
+
+                {% endif %}
+
+
+                <span>
+                    {{ order.address.city }},
+                    {{ order.address.state }}
+                    -
+                    {{ order.address.pincode }}
+                </span>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- ==========================================
+             ORDER SUMMARY
+        =========================================== -->
+
+        <div class="admin-detail-card">
+
+            <h2>
+                Order Summary
+            </h2>
+
+
+            <div class="admin-summary-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    ₹{{ order.subtotal|floatformat:2 }}
+                </strong>
+
+            </div>
+
+
+            <div class="admin-summary-row">
+
+                <span>
+                    Shipping
+                </span>
+
+                <strong>
+
+                    {% if order.shipping == 0 %}
+
+                        Free
+
+                    {% else %}
+
+                        ₹{{ order.shipping|floatformat:2 }}
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="admin-summary-divider"></div>
+
+
+            <div class="admin-grand-total">
+
+                <span>
+                    Grand Total
+                </span>
+
+                <strong>
+                    ₹{{ order.grand_total|floatformat:2 }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+{% endblock %}

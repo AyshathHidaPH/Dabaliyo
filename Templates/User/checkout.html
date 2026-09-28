@@ -1,0 +1,865 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Checkout | Dabaliyo</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main class="checkout-page">
+
+    <div class="checkout-container">
+
+        <!-- =====================================================
+             LEFT COLUMN - ADDRESS
+        ====================================================== -->
+
+        <section class="address-section">
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <div class="checkout-section-header">
+
+                <div>
+                    <h1 class="fw-bold">
+                        Choose Address
+                    </h1>
+
+                    <p class="section-subtitle">
+                        Select a delivery address for your order.
+                    </p>
+                </div>
+
+
+                <!-- =================================================
+                     ADD NEW ADDRESS
+                ================================================== -->
+
+                <a
+                    href="{% url 'add_address' %}"
+                    class="add-address-btn"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    <span>
+                        Add New Address
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 ADDRESS FORM
+            ================================================== -->
+
+            <form
+                method="POST"
+                action="{% url 'confirm_order' %}"
+                id="addressForm"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =================================================
+                     ADDRESS LIST
+                ================================================== -->
+
+                <div class="address-list">
+
+                    {% for address in addresses %}
+
+                    <label
+                        class="address-card"
+                        for="address-{{ address.id }}"
+                    >
+
+                        <!-- =================================================
+                             RADIO
+                        ================================================== -->
+
+                        <div class="radio-container">
+
+                            <input
+                                type="radio"
+                                name="address_id"
+                                value="{{ address.id }}"
+                                id="address-{{ address.id }}"
+                                class="address-radio"
+
+                                {% if address.is_default %}
+                                    checked
+                                {% endif %}
+                            >
+
+                            <span class="custom-radio"></span>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             ADDRESS INFORMATION
+                        ================================================== -->
+
+                        <div class="address-information">
+
+
+                            <!-- NAME -->
+
+                            <div class="name-row">
+
+                                <span class="customer-name">
+                                    {{ address.name }}
+                                </span>
+
+
+                                <span class="address-type">
+                                    {{ address.address_type|upper }}
+                                </span>
+
+
+                                {% if address.is_default %}
+
+                                <span class="default-badge">
+                                    DEFAULT
+                                </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- PHONE -->
+
+                            {% if address.phone %}
+
+                            <div class="phone-number">
+
+                                <i class="fa-solid fa-phone"></i>
+
+                                {{ address.phone }}
+
+                            </div>
+
+                            {% endif %}
+
+
+                            <!-- EMAIL -->
+
+                            {% if address.email %}
+
+                            <div class="phone-number">
+
+                                <i class="fa-solid fa-envelope"></i>
+
+                                {{ address.email }}
+
+                            </div>
+
+                            {% endif %}
+
+
+                            <!-- ADDRESS -->
+
+                            <div class="address-text">
+
+                                {{ address.address }}
+
+                                <br>
+
+                                {% if address.landmark %}
+
+                                    {{ address.landmark }},
+
+                                {% endif %}
+
+                                {{ address.city }},
+                                {{ address.state }}
+                                -
+                                {{ address.pincode }}
+
+                            </div>
+
+
+                            <!-- LANDMARK -->
+
+                            {% if address.landmark %}
+
+                            <div class="landmark">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                Landmark:
+                                {{ address.landmark }}
+
+                            </div>
+
+                            {% endif %}
+
+
+                            <!-- =================================================
+                                 EDIT / DELETE
+                            ================================================== -->
+
+                            <div class="address-actions">
+
+
+                                <!-- EDIT -->
+
+                                <a
+                                    href="{% url 'edit_address' address.id %}"
+                                    class="edit-button"
+                                    onclick="event.stopPropagation();"
+                                >
+
+                                    <i class="fa-regular fa-pen-to-square"></i>
+
+                                    EDIT
+
+                                </a>
+
+
+                                <!-- DELETE -->
+
+                                <div
+                                    class="delete-address-form"
+                                    data-url="{% url 'delete_address' address.id %}"
+                                    onclick="event.stopPropagation();"
+                                >
+
+                                    <button
+                                        type="button"
+                                        class="delete-button"
+                                    >
+
+                                        <i class="fa-regular fa-trash-can"></i>
+
+                                        DELETE
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+
+                    {% empty %}
+
+
+                    <!-- =================================================
+                         NO SAVED ADDRESS
+                    ================================================== -->
+
+                    <div class="no-address">
+
+                        <div class="no-address-icon">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </div>
+
+
+                        <h3>
+                            No saved address
+                        </h3>
+
+
+                        <p>
+                            Add a delivery address to continue with your order.
+                        </p>
+
+
+                        <a
+                            href="{% url 'add_address' %}"
+                            class="no-address-button btn"
+                        >
+
+                            <i class="fa-solid fa-plus"></i>
+
+                            Add New Address
+
+                        </a>
+
+                    </div>
+
+
+                    {% endfor %}
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- =====================================================
+             RIGHT COLUMN - ORDER SUMMARY
+        ====================================================== -->
+
+        <aside class="summary-card">
+
+
+            <!-- =================================================
+                 SUMMARY HEADER
+            ================================================== -->
+
+            <div class="summary-header">
+
+                <div>
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+                </div>
+
+
+                <span class="cart-count">
+
+                    {% if cart_items %}
+                        {{ cart_items|length }}
+                    {% else %}
+                        0
+                    {% endif %}
+
+
+                    {% if cart_items|length == 1 %}
+                        Item
+                    {% else %}
+                        Items
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 PRODUCTS
+            ================================================== -->
+
+            <div class="order-items">
+
+                {% for item in cart_items %}
+
+                <div class="order-item">
+
+
+                    <!-- IMAGE -->
+
+                    <div class="order-image">
+
+                        {% if item.product.image %}
+
+                        <img
+                            src="{{ item.product.image.url }}"
+                            alt="{{ item.product.name }}"
+                        >
+
+                        {% else %}
+
+                        <div class="no-image">
+
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+
+                        </div>
+
+                        {% endif %}
+
+
+                        <!-- QUANTITY -->
+
+                        <span class="quantity-badge">
+                            {{ item.quantity }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- PRODUCT INFO -->
+
+                    <div class="order-info">
+
+                        <h3>
+                            {{ item.product.name }}
+                        </h3>
+
+                        <p>
+                            Qty: {{ item.quantity }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- PRICE -->
+
+                    <div class="order-price">
+
+                        {% if item.product.discount_price %}
+
+                            ₹{{ item.product.discount_price|floatformat:0 }}
+
+                        {% else %}
+
+                            ₹{{ item.product.price|floatformat:0 }}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                {% empty %}
+
+
+                <!-- EMPTY CART -->
+
+                <div class="empty-cart">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    <p>
+                        Your cart is empty.
+                    </p>
+
+                </div>
+
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- =================================================
+                 DIVIDER
+            ================================================== -->
+
+            <div class="summary-divider"></div>
+
+
+            <!-- =================================================
+                 SUBTOTAL
+            ================================================== -->
+
+            <div class="summary-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    ₹{{ subtotal|floatformat:0 }}
+                </strong>
+
+            </div>
+
+
+            <!-- =================================================
+                 SHIPPING
+            ================================================== -->
+
+            <div class="summary-row">
+
+                <span>
+                    Shipping
+                </span>
+
+                <strong class="shipping-price">
+
+                    {% if shipping == 0 %}
+
+                        Free
+
+                    {% else %}
+
+                        ₹{{ shipping|floatformat:0 }}
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <!-- =================================================
+                 DIVIDER
+            ================================================== -->
+
+            <div class="summary-divider"></div>
+
+
+            <!-- =================================================
+                 GRAND TOTAL
+            ================================================== -->
+
+            <div class="summary-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    ₹{{ grand_total|floatformat:0 }}
+                </strong>
+
+            </div>
+
+
+            <!-- =================================================
+                 SECURE CHECKOUT
+            ================================================== -->
+
+            <div class="secure-checkout">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <div>
+
+                    <strong>
+                        Secure Checkout
+                    </strong>
+
+                    <span>
+                        Your information is protected.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 TERMS
+            ================================================== -->
+
+            <p class="terms">
+
+                By placing your order, you agree to our
+
+                <span>
+                    Terms of Service
+                </span>
+
+                and
+
+                <span>
+                    Privacy Policy
+                </span>.
+
+            </p>
+
+
+            <!-- =================================================
+                 PLACE ORDER
+            ================================================== -->
+
+            {% if cart_items %}
+
+            <button
+                type="submit"
+                form="addressForm"
+                class="place-order-btn"
+                id="placeOrderButton"
+                disabled
+            >
+
+                <span>
+                    Place Order
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+            {% else %}
+
+            <button
+                type="button"
+                class="place-order-btn disabled"
+                disabled
+            >
+
+                Cart is Empty
+
+            </button>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 BACK TO CART
+            ================================================== -->
+
+            <a
+                href="{% url 'cart' %}"
+                class="back-cart"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Cart
+
+            </a>
+
+        </aside>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* =========================================================
+       ADDRESS SELECTION
+    ========================================================= */
+
+    const radios =
+        document.querySelectorAll(".address-radio");
+
+
+    const placeOrderButton =
+        document.getElementById("placeOrderButton");
+
+
+    function updateAddressSelection() {
+
+        let selectedAddress = false;
+
+
+        radios.forEach(function (radio) {
+
+            const card =
+                radio.closest(".address-card");
+
+
+            if (radio.checked) {
+
+                selectedAddress = true;
+
+
+                if (card) {
+
+                    card.classList.add("selected");
+
+                }
+
+            }
+
+            else {
+
+                if (card) {
+
+                    card.classList.remove("selected");
+
+                }
+
+            }
+
+        });
+
+
+        /* =====================================================
+           PLACE ORDER BUTTON
+        ===================================================== */
+
+        if (placeOrderButton) {
+
+            placeOrderButton.disabled =
+                !selectedAddress;
+
+
+            if (selectedAddress) {
+
+                placeOrderButton.classList.remove(
+                    "disabled"
+                );
+
+            }
+
+            else {
+
+                placeOrderButton.classList.add(
+                    "disabled"
+                );
+
+            }
+
+        }
+
+    }
+
+
+    /* =========================================================
+       RADIO CHANGE
+    ========================================================= */
+
+    radios.forEach(function (radio) {
+
+        radio.addEventListener(
+            "change",
+            function () {
+
+                updateAddressSelection();
+
+            }
+        );
+
+    });
+
+
+    /* =========================================================
+       INITIAL LOAD
+    ========================================================= */
+
+    updateAddressSelection();
+
+
+    /* =========================================================
+       DELETE ADDRESS
+    ========================================================= */
+
+    const deleteButtons =
+        document.querySelectorAll(".delete-button");
+
+
+    deleteButtons.forEach(function (button) {
+
+        button.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                const confirmed = confirm(
+                    "Are you sure you want to delete this address?"
+                );
+
+
+                if (!confirmed) {
+
+                    return;
+
+                }
+
+
+                const deleteContainer =
+                    button.closest(
+                        ".delete-address-form"
+                    );
+
+
+                if (!deleteContainer) {
+
+                    return;
+
+                }
+
+
+                const deleteUrl =
+                    deleteContainer.dataset.url;
+
+
+                if (!deleteUrl) {
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   GET CSRF TOKEN
+                ================================================== */
+
+                const csrfToken =
+                    document.querySelector(
+                        "#addressForm input[name='csrfmiddlewaretoken']"
+                    );
+
+
+                if (!csrfToken) {
+
+                    alert(
+                        "CSRF token not found."
+                    );
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   CREATE POST FORM
+                ================================================== */
+
+                const form =
+                    document.createElement("form");
+
+
+                form.method = "POST";
+
+                form.action = deleteUrl;
+
+
+                /* CSRF */
+
+                const csrfInput =
+                    document.createElement("input");
+
+
+                csrfInput.type = "hidden";
+
+                csrfInput.name =
+                    "csrfmiddlewaretoken";
+
+                csrfInput.value =
+                    csrfToken.value;
+
+
+                form.appendChild(
+                    csrfInput
+                );
+
+
+                document.body.appendChild(
+                    form
+                );
+
+
+                form.submit();
+
+            }
+        );
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,554 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block title %}
+    <title>Dabaliyo</title>
+    {% endblock %}
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         MAIN NAVBAR / SITE CSS
+    ====================================================== -->
+
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+
+    {% block style %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+    <div class="custom-nav">
+
+        <nav class="navbar navbar-expand-lg bg-white">
+
+            <div class="container">
+
+
+                <!-- =================================================
+                 LOGO
+            ================================================== -->
+
+                <a href="{% url 'home' %}" class="navbar-brand logo">
+
+                    <img src="{% static 'images/logo.png' %}" alt="Dabaliyo">
+
+                </a>
+
+
+                <!-- =================================================
+                 MOBILE MENU BUTTON
+            ================================================== -->
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+
+                <!-- =================================================
+                 NAVIGATION
+            ================================================== -->
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+
+
+                        <!-- =============================================
+                         HOME
+                    ============================================== -->
+
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{% url 'home' %}">
+                                Home
+                            </a>
+
+                        </li>
+
+
+                        <!-- =============================================
+                         PRODUCTS
+                    ============================================== -->
+
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{% url 'productpage' %}">
+                                Products
+                            </a>
+
+                        </li>
+
+
+                        <!-- =============================================
+                         CONTACT
+                    ============================================== -->
+
+                        <li class="nav-item">
+
+                            <a class="nav-link" href="{% url 'contact' %}">
+                                Contact Us
+                            </a>
+
+                        </li>
+
+
+                        <!-- =============================================
+                         SEARCH
+                    ============================================== -->
+
+                        <li class="nav-item search-item">
+
+                            <div class="search-wrapper">
+
+                                <form method="GET" action="{% url 'productpage' %}" class="navbar-search">
+
+                                    <input type="text" name="search" placeholder="Search products..."
+                                        value="{{ request.GET.search|default:'' }}">
+
+                                    <button type="submit">
+
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </li>
+
+
+                        <!-- =============================================
+                         WISHLIST
+                    ============================================== -->
+
+                        <li class="nav-item icon-item">
+
+                            <a class="nav-link icon-link" href="{% url 'wishlist' %}" aria-label="Wishlist">
+
+                                <i class="fa-solid fa-heart"></i>
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- =============================================
+                         CART
+                    ============================================== -->
+
+                        <li class="nav-item icon-item">
+
+                            <a class="nav-link icon-link" href="{% url 'cart' %}" aria-label="Cart">
+
+                                <i class="fa-solid fa-cart-shopping"></i>
+
+                            </a>
+
+                        </li>
+
+
+                        <!-- =============================================
+                         PROFILE / LOGIN
+                    ============================================== -->
+
+                        <li class="nav-item profile-dropdown">
+
+
+                            {% if user.is_authenticated %}
+
+
+                            <!-- =================================
+                                 PROFILE BUTTON
+                            ================================== -->
+
+                            <a href="{% url 'edit_profile' %}" class="profile-button" aria-label="Profile">
+
+                                {% if user.profile.profile_image %}
+
+                                <img src="{{ user.profile.profile_image.url }}" alt="Profile"
+                                    class="navbar-profile-image">
+
+                                {% else %}
+
+                                <span class="navbar-profile-letter">
+
+                                    {{ user.username|first|upper }}
+
+                                </span>
+
+                                {% endif %}
+
+                            </a>
+
+
+                            <!-- =================================
+                                 PROFILE DROPDOWN
+                            ================================== -->
+
+                            <div class="profile-menu">
+                                <!-- ORDERS -->
+
+                                <a href="{% url 'my_orders' %}">
+
+                                    <i class="fa-solid fa-box"></i>
+
+                                    <span>
+                                        Orders
+                                    </span>
+
+                                </a>
+
+
+                                <div class="profile-menu-divider"></div>
+
+
+                                <!-- EDIT PROFILE -->
+
+                                <a href="{% url 'edit_profile' %}">
+
+                                    <i class="fa-regular fa-user"></i>
+
+                                    <span>
+                                        Edit Profile
+                                    </span>
+
+                                </a>
+
+
+                                <!-- DIVIDER -->
+
+                                <div class="profile-menu-divider"></div>
+
+
+                                <!-- LOGOUT -->
+
+                                <form method="POST" action="{% url 'logout' %}">
+
+                                    {% csrf_token %}
+
+                                    <button type="submit">
+
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                                        <span>
+                                            Logout
+                                        </span>
+
+                                    </button>
+
+                                </form>
+
+
+                            </div>
+
+
+                            {% else %}
+
+
+                            <!-- =================================
+                                 LOGIN
+                            ================================== -->
+
+                            <a class="nav-link login-link" href="{% url 'login' %}">
+                                Login
+                            </a>
+
+
+                            {% endif %}
+
+
+                        </li>
+
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </div>
+
+
+    <!-- =====================================================
+     PAGE CONTENT
+===================================================== -->
+
+    {% block content %}
+    {% endblock %}
+
+
+    <!-- =====================================================
+     FOOTER
+===================================================== -->
+
+    <footer class="footer">
+
+        <div class="container-fluid footer-container">
+
+            <div class="row gy-5">
+
+
+                <!-- =================================================
+                 LEFT SIDE
+            ================================================== -->
+
+                <div class="col-12 col-lg-6">
+
+
+                    <!-- FOOTER LOGO -->
+
+                    <div class="footer-logo">
+
+                        <img src="{% static 'images/logo.png' %}" alt="Dabaliyo">
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <p class="footer-description">
+
+                        Dabaliyo is a trusted mobile phone business offering
+                        the latest smartphones, accessories, and quality tech
+                        products at affordable prices with reliable customer
+                        service and genuine products.
+
+                    </p>
+
+
+                    <!-- CONTACT TITLE -->
+
+                    <h3 class="footer-title">
+                        CONTACT US
+                    </h3>
+
+
+                    <!-- CONTACT SUBTITLE -->
+
+                    <p class="footer-subtitle">
+
+                        We are looking forward to hearing from you soon.
+
+                    </p>
+
+
+                    <!-- SOCIAL ICONS -->
+
+                    <div class="social-icons">
+
+
+                        <a href="#" aria-label="WhatsApp">
+
+                            <i class="fa-brands fa-whatsapp"></i>
+
+                        </a>
+
+
+                        <a href="#" aria-label="Instagram">
+
+                            <i class="fa-brands fa-instagram"></i>
+
+                        </a>
+
+
+                        <a href="#" aria-label="LinkedIn">
+
+                            <i class="fa-brands fa-linkedin-in"></i>
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                 RIGHT SIDE
+            ================================================== -->
+
+                <div class="col-12 col-lg-6">
+
+
+                    <form class="contact-form">
+
+                        <div class="row g-3">
+
+
+                            <!-- NAME -->
+
+                            <div class="col-12 col-sm-6">
+
+                                <input type="text" placeholder="NAME" class="form-control">
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div class="col-12 col-sm-6">
+
+                                <input type="email" placeholder="E-MAIL" class="form-control">
+
+                            </div>
+
+
+                            <!-- PHONE -->
+
+                            <div class="col-12 col-sm-6">
+
+                                <input type="tel" placeholder="PHONE NUMBER" class="form-control">
+
+                            </div>
+
+
+                            <!-- ADDRESS -->
+
+                            <div class="col-12 col-sm-6">
+
+                                <input type="text" placeholder="ADDRESS" class="form-control">
+
+                            </div>
+
+
+                            <!-- MESSAGE -->
+
+                            <div class="col-12">
+
+                                <textarea placeholder="MESSAGE" rows="5" class="form-control"></textarea>
+
+                            </div>
+
+
+                            <!-- SEND BUTTON -->
+
+                            <div class="col-12">
+
+                                <button type="submit" class="btn btn-dark send-btn">
+
+                                    Send Message
+
+                                </button>
+
+                            </div>
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+             FOOTER LINE
+        ================================================== -->
+
+            <hr class="footer-line">
+
+
+            <!-- =================================================
+             COPYRIGHT
+        ================================================== -->
+
+            <div class="copyright">
+
+
+                <p>
+                    Copyright 2025. Dabaliyo. All rights reserved.
+                </p>
+
+
+                <p>
+                    Privacy Policy |
+                    Terms and Conditions
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+     DJANGO MESSAGES
+===================================================== -->
+
+    {% if messages %}
+
+    {% for message in messages %}
+
+    <div class="popup-message
+            {% if message.tags %}
+                {{ message.tags }}
+            {% endif %}">
+
+        <span>
+            {{ message }}
+        </span>
+
+
+        <button type="button" onclick="closePopup(this)">
+            &times;
+        </button>
+
+    </div>
+
+    {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =====================================================
+     BOOTSTRAP JS
+===================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

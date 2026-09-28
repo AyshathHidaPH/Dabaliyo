@@ -1,0 +1,244 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Orders | Admin | Dabaliyo</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/admin_orders.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<main class="admin-orders-page">
+    <a href="{% url 'dashboard' %}" class="text-decoration-none m-1">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Dashboard
+    </a>
+
+    <div class="admin-orders-container">
+
+
+        <!-- ==========================================
+             PAGE HEADER
+        =========================================== -->
+
+        <div class="admin-orders-header">
+
+            <div>
+
+                <h1>
+                    Orders
+                </h1>
+
+                <p>
+                    Manage all customer orders
+                </p>
+
+            </div>
+
+            <div class="total-orders">
+                {{ orders|length }} Orders
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             ORDERS LIST
+        =========================================== -->
+
+        <div class="admin-orders-list">
+
+
+            {% for order in orders %}
+
+            <div class="admin-order-card">
+
+
+                <!-- ORDER HEADER -->
+
+                <div class="admin-order-header">
+
+                    <div>
+
+                        <h2>
+                            Order #{{ order.id }}
+                        </h2>
+
+                        <p>
+                            {{ order.created_at|date:"d M Y, h:i A" }}
+                        </p>
+
+                    </div>
+
+
+                    <span class="admin-status">
+                        {{ order.status }}
+                    </span>
+
+                </div>
+
+
+                <!-- CUSTOMER -->
+
+                <div class="customer-section">
+
+                    <span class="section-label">
+                        Customer
+                    </span>
+
+
+                    <div class="customer-info">
+
+                        <div class="customer-avatar">
+                            {{ order.user.username|first|upper }}
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                {{ order.user.get_full_name|default:order.user.username }}
+                            </strong>
+
+                            <span>
+                                {{ order.user.email }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCTS -->
+
+                <div class="admin-products-section">
+
+                    <span class="section-label">
+                        Ordered Products
+                    </span>
+
+
+                    {% for item in order.items.all %}
+
+                    <div class="admin-product-row">
+
+
+                        <!-- PRODUCT IMAGE -->
+
+                        <div class="admin-product-image">
+
+                            {% if item.product and item.product.image %}
+
+                                <img
+                                    src="{{ item.product.image.url }}"
+                                    alt="{{ item.product_name }}"
+                                >
+
+                            {% else %}
+
+                                <i class="fa-solid fa-mobile-screen-button"></i>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- PRODUCT INFO -->
+
+                        <div class="admin-product-info">
+
+                            <strong>
+                                {{ item.product_name }}
+                            </strong>
+
+                            <span>
+                                Quantity: {{ item.quantity }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- PRODUCT TOTAL -->
+
+                        <div class="admin-product-price">
+
+                            ₹{{ item.total|floatformat:2 }}
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- ORDER FOOTER -->
+
+                <div class="admin-order-bottom">
+
+
+                    <div class="admin-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong>
+                            ₹{{ order.grand_total|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'admin_order_detail' order.id %}"
+                        class="admin-view-btn"
+                    >
+
+                        <i class="fa-solid fa-eye"></i>
+
+                        View Order
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+            {% empty %}
+
+
+            <!-- NO ORDERS -->
+
+            <div class="admin-empty-orders">
+
+                <i class="fa-solid fa-box-open"></i>
+
+                <h2>
+                    No Orders Yet
+                </h2>
+
+                <p>
+                    Customer orders will appear here.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+
+    </div>
+
+</main>
+
+{% endblock %}

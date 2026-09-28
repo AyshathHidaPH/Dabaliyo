@@ -1,0 +1,118 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title> product add Page </title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/product_add.css' %}">
+{% endblock %}
+{% block content %}
+
+
+
+
+<div class="container-fluid py-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 py-5">
+            <div class="form-card">
+
+                <h3 class="form-title">Add Products</h3>
+
+                <form action="{% url 'product_add' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" class="form-control custom-input" value="{{ product.name }}"
+                            placeholder="Product Name" name='name' required
+                            oninvalid="this.setCustomValidity('Please enter product name')"
+                            oninput="this.setCustomValidity('')">
+                        {% if errors.name %}
+                        <small class="text-danger">{{ errors.name }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control custom-input" value="{{ product.price }}"
+                            placeholder="Price" name='price' required
+                            oninvalid="this.setCustomValidity('Please enter product price')"
+                            oninput="this.setCustomValidity('')">
+                        {% if errors.price %}
+                        <small class="text-danger">{{ errors.price }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control custom-input" value="{{ product.discount }}"
+                            placeholder="Discount Price" name='discount' required
+                            oninvalid="this.setCustomValidity('Please enter discount price')"
+                            oninput="this.setCustomValidity('')">
+                        {% if errors.discount %}
+                        <small class="text-danger">{{ errors.discount }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="text" class="form-control custom-input" value="{{ product.stock }}"
+                            placeholder="Stock" name='stock' required
+                            oninvalid="this.setCustomValidity('Please enter stock value')"
+                            oninput="this.setCustomValidity('')">
+                        {% if errors.stock %}
+                        <small class="text-danger">{{ errors.stock }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="mb-4">
+                        <textarea class="form-control custom-input" value="{{ product.description }}"
+                            placeholder="Description" name='description' required></textarea>
+                        {% if errors.description %}
+                        <small class="text-danger">{{ errors.description }}</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Upload Photo</label>
+                        <input type="file" name="photo" class="form-control" accept="image/*" required
+                            oninvalid="this.setCustomValidity('Please upload product photo')"
+                            oninput="this.setCustomValidity('')">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Brand</label>
+                        <select class="form-select" name="brand">
+                            <option value="">Select Brand</option>
+                            {% for brand in brands %}
+                            <option value="{{ brand.id }}">{{ brand.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Color</label>
+                        <select class="form-select" name="color">
+                            <option value="" required>Select Color</option>
+                            {% for color in colors %}
+                            <option value="{{ color.id }}">
+                                {{ color.color }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Storage</label>
+                        <select class="form-select" name="storage" required>
+                            <option value="">Select Storage</option>
+                            {% for storage in storages %}
+                            <option value="{{ storage.id }}">
+                                {{ storage.size }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn form-btn w-100">
+                        Submit
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+
+
+        {% endblock %}

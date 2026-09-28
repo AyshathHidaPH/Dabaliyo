@@ -1,0 +1,1296 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f5f5f6;
+
+    color: #282c3f;
+
+    padding-bottom: 95px;
+}
+
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.address-header {
+    height: 65px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e5e5e5;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 30px;
+
+    gap: 25px;
+}
+
+
+.back-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    color: #282c3f;
+
+    font-size: 14px;
+}
+
+
+.back-link:hover {
+    color: #8060d8;
+}
+
+
+.back-arrow {
+    font-size: 27px;
+
+    line-height: 1;
+}
+
+
+.header-title {
+    font-size: 19px;
+
+    font-weight: 600;
+
+    letter-spacing: .5px;
+}
+
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.address-page {
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 30px auto 110px;
+
+    padding: 0 20px;
+}
+
+
+/* =========================================================
+   ADD ADDRESS BUTTON
+========================================================= */
+
+.add-address-button {
+    width: 100%;
+
+    height: 58px;
+
+    background: #ffffff;
+
+    border: 1px solid #292929;
+
+    border-radius: 5px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    color: #282c3f;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    letter-spacing: .4px;
+
+    cursor: pointer;
+
+    margin-bottom: 20px;
+
+    transition: .2s ease;
+}
+
+
+.add-address-button:hover {
+    border-color: #8060d8;
+
+    color: #8060d8;
+
+    background: #fcfaff;
+}
+
+
+.plus-icon {
+    font-size: 23px;
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.section-title {
+    background: #eeeeef;
+
+    padding: 16px 20px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #555;
+
+    letter-spacing: .4px;
+}
+
+
+/* =========================================================
+   ADDRESS LIST
+========================================================= */
+
+.address-list {
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   ADDRESS CARD
+========================================================= */
+
+.address-card {
+    width: 100%;
+
+    min-height: 145px;
+
+    padding: 24px 20px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+
+    display: flex;
+
+    gap: 17px;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        border-left .2s ease;
+}
+
+
+.address-card:hover {
+    background: #fafafa;
+}
+
+
+.address-card.selected {
+    background: #fcfaff;
+
+    border-left: 4px solid #8060d8;
+
+    padding-left: 16px;
+}
+
+
+/* =========================================================
+   RADIO
+========================================================= */
+
+.radio-container {
+    position: relative;
+
+    width: 23px;
+
+    min-width: 23px;
+
+    height: 23px;
+
+    margin-top: 3px;
+}
+
+
+.address-radio {
+    position: absolute;
+
+    opacity: 0;
+
+    width: 23px;
+
+    height: 23px;
+
+    cursor: pointer;
+}
+
+
+.custom-radio {
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 22px;
+
+    height: 22px;
+
+    border: 2px solid #333;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    transition: .15s ease;
+}
+
+
+.address-radio:checked + .custom-radio {
+    border: 6px solid #8060d8;
+}
+
+
+/* =========================================================
+   ADDRESS INFORMATION
+========================================================= */
+
+.address-information {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.name-row {
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 9px;
+}
+
+
+.customer-name {
+    font-size: 17px;
+
+    font-weight: 600;
+
+    color: #282c3f;
+}
+
+
+.address-type {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #20a46b;
+
+    color: #20a46b;
+
+    border-radius: 15px;
+
+    padding: 3px 10px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: .4px;
+}
+
+
+.default-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eee9ff;
+
+    color: #7658d6;
+
+    border-radius: 15px;
+
+    padding: 4px 9px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: .4px;
+}
+
+
+.phone-number {
+    font-size: 14px;
+
+    color: #444;
+
+    margin-bottom: 7px;
+}
+
+
+.address-text {
+    color: #555;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+.landmark {
+    color: #777;
+
+    font-size: 13px;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   ADDRESS ACTIONS
+========================================================= */
+
+.address-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-top: 14px;
+}
+
+
+.edit-button,
+.delete-button {
+    border: none;
+
+    background: transparent;
+
+    padding: 0;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .3px;
+}
+
+
+.edit-button {
+    color: #8060d8;
+}
+
+
+.delete-button {
+    color: #e24c4c;
+}
+
+
+.edit-button:hover,
+.delete-button:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   EMPTY ADDRESS
+========================================================= */
+
+.no-address {
+    background: #ffffff;
+
+    padding: 60px 20px;
+
+    text-align: center;
+}
+
+
+.no-address-icon {
+    font-size: 42px;
+
+    margin-bottom: 12px;
+}
+
+
+.no-address h3 {
+    font-size: 18px;
+
+    margin-bottom: 8px;
+}
+
+
+.no-address p {
+    color: #777;
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+}
+
+
+.no-address-button {
+    border: none;
+
+    background: #8060d8;
+
+    color: #ffffff;
+
+    border-radius: 5px;
+
+    padding: 12px 22px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   BOTTOM BAR
+========================================================= */
+
+.bottom-bar {
+    position: fixed;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    min-height: 78px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #dddddd;
+
+    padding: 12px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    z-index: 100;
+}
+
+
+.continue-button {
+    width: 100%;
+
+    max-width: 550px;
+
+    height: 55px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #c4c5c9;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
+
+    cursor: not-allowed;
+
+    transition: .2s ease;
+}
+
+
+.continue-button.active {
+    background: linear-gradient(
+        135deg,
+        #8060d8,
+        #9a78e8
+    );
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 15px
+        rgba(128, 96, 216, .2);
+}
+
+
+.continue-button.active:hover {
+    background: linear-gradient(
+        135deg,
+        #7352cc,
+        #8e69df
+    );
+}
+
+
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, .5);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 500;
+}
+
+
+.modal-overlay.show {
+    display: flex;
+}
+
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.address-modal {
+    width: 100%;
+
+    max-width: 650px;
+
+    max-height: 92vh;
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0, 0, 0, .25);
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.modal-header {
+    padding: 20px 25px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+
+.modal-header h2 {
+    font-size: 20px;
+
+    margin-bottom: 5px;
+}
+
+
+.modal-header p {
+    font-size: 13px;
+
+    color: #888;
+}
+
+
+.close-button {
+    width: 34px;
+
+    height: 34px;
+
+    border: none;
+
+    background: #f1f1f3;
+
+    border-radius: 50%;
+
+    font-size: 22px;
+
+    color: #555;
+
+    cursor: pointer;
+}
+
+
+.close-button:hover {
+    background: #e8e8ea;
+}
+
+
+/* =========================================================
+   MODAL BODY
+========================================================= */
+
+.modal-body {
+    padding: 25px;
+}
+
+
+.form-group {
+    margin-bottom: 19px;
+}
+
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+}
+
+
+.form-group label {
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #282c3f;
+
+    margin-bottom: 8px;
+}
+
+
+.form-group label span {
+    color: #e53935;
+}
+
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+
+    height: 47px;
+
+    border: 1px solid #d6d6d8;
+
+    border-radius: 6px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    padding: 0 13px;
+
+    font-size: 14px;
+
+    color: #333;
+
+    transition:
+        border .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.form-group textarea {
+    height: 100px;
+
+    padding-top: 12px;
+
+    resize: vertical;
+}
+
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #aaa;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #8060d8;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(128, 96, 216, .1);
+}
+
+
+/* =========================================================
+   ADDRESS TYPE
+========================================================= */
+
+.address-types {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+
+.type-option {
+    cursor: pointer;
+}
+
+
+.type-option input {
+    display: none;
+}
+
+
+.type-option span {
+    min-width: 95px;
+
+    height: 40px;
+
+    padding: 0 15px;
+
+    border: 1px solid #d2d2d2;
+
+    border-radius: 6px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #555;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+
+.type-option input:checked + span {
+    background: #eee9ff;
+
+    border-color: #8060d8;
+
+    color: #7658d6;
+}
+
+
+/* =========================================================
+   DEFAULT ADDRESS
+========================================================= */
+
+.default-address {
+    display: flex !important;
+
+    align-items: center;
+
+    gap: 9px;
+
+    cursor: pointer;
+
+    font-size: 13px !important;
+
+    font-weight: 400 !important;
+
+    color: #555 !important;
+}
+
+
+.default-address input {
+    width: 17px;
+
+    height: 17px;
+
+    accent-color: #8060d8;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   MODAL FOOTER
+========================================================= */
+
+.modal-footer {
+    padding: 17px 25px;
+
+    border-top: 1px solid #eeeeee;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+
+.cancel-button,
+.save-button {
+    height: 46px;
+
+    padding: 0 25px;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.cancel-button {
+    background: #ffffff;
+
+    border: 1px solid #d2d2d2;
+
+    color: #555;
+}
+
+
+.cancel-button:hover {
+    background: #f7f7f7;
+}
+
+
+.save-button {
+    background: #8060d8;
+
+    border: none;
+
+    color: #ffffff;
+}
+
+
+.save-button:hover {
+    background: #7152c9;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .address-header {
+        padding: 0 20px;
+    }
+
+
+    .address-page {
+        margin-top: 20px;
+
+        padding: 0 15px;
+    }
+
+
+    .form-row {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+
+    .form-row .form-group {
+        margin-bottom: 19px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+
+    body {
+        padding-bottom: 82px;
+    }
+
+
+    /* HEADER */
+
+    .address-header {
+        height: 58px;
+
+        padding: 0 16px;
+
+        gap: 15px;
+    }
+
+
+    .back-link {
+        font-size: 13px;
+    }
+
+
+    .back-arrow {
+        font-size: 25px;
+    }
+
+
+    .header-title {
+        font-size: 17px;
+    }
+
+
+    /* PAGE */
+
+    .address-page {
+        margin: 15px auto 95px;
+
+        padding: 0;
+    }
+
+
+    /* ADD BUTTON */
+
+    .add-address-button {
+        width: calc(100% - 24px);
+
+        margin: 0 12px 15px;
+
+        height: 55px;
+
+        font-size: 15px;
+    }
+
+
+    /* SECTION */
+
+    .section-title {
+        padding: 15px 20px;
+
+        font-size: 14px;
+    }
+
+
+    /* ADDRESS */
+
+    .address-card {
+        min-height: 0;
+
+        padding: 21px 14px;
+
+        gap: 13px;
+    }
+
+
+    .address-card.selected {
+        padding-left: 11px;
+    }
+
+
+    .customer-name {
+        font-size: 16px;
+    }
+
+
+    .phone-number {
+        font-size: 13px;
+    }
+
+
+    .address-text {
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+
+    .landmark {
+        font-size: 12px;
+    }
+
+
+    .address-actions {
+        margin-top: 12px;
+
+        gap: 16px;
+    }
+
+
+    /* BOTTOM */
+
+    .bottom-bar {
+        min-height: 70px;
+
+        padding: 10px 15px;
+    }
+
+
+    .continue-button {
+        height: 52px;
+
+        font-size: 14px;
+    }
+
+
+    /* MODAL */
+
+    .modal-overlay {
+        padding: 0;
+
+        align-items: flex-end;
+    }
+
+
+    .address-modal {
+        max-height: 94vh;
+
+        border-radius: 15px 15px 0 0;
+    }
+
+
+    .modal-header {
+        padding: 18px;
+    }
+
+
+    .modal-header h2 {
+        font-size: 18px;
+    }
+
+
+    .modal-header p {
+        font-size: 12px;
+    }
+
+
+    .modal-body {
+        padding: 18px;
+    }
+
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        font-size: 14px;
+    }
+
+
+    .modal-footer {
+        padding: 14px 18px;
+
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .cancel-button,
+    .save-button {
+        width: 100%;
+
+        padding: 0;
+    }
+
+}
+
+/* =========================================================
+   ADD NEW ADDRESS BUTTON
+========================================================= */
+
+.add-address-button {
+    width: 100%;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    background: #ffffff;
+    border: 1px solid #8060d8;
+    border-radius: 5px;
+
+    color: #8060d8 !important;
+    text-decoration: none !important;
+
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: .4px;
+
+    cursor: pointer;
+    margin-bottom: 20px;
+
+    transition: .2s ease;
+}
+
+.add-address-button:hover,
+.add-address-button:focus,
+.add-address-button:active {
+    color: #8060d8 !important;
+    text-decoration: none !important;
+    background: #fcfaff;
+    border-color: #8060d8;
+}
+
+.add-address-button .plus-icon {
+    font-size: 23px;
+    font-weight: 400;
+    text-decoration: none !important;
+}
+.address-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.delete-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.edit-button,
+.delete-button {
+    border: none;
+    background: none;
+    padding: 6px 0;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.edit-button {
+    color: #8a74d8;
+}
+
+.delete-button {
+    color: #e85b68;
+}
+
+@media (max-width: 576px) {
+    .address-actions {
+        gap: 14px;
+    }
+
+    .edit-button,
+    .delete-button {
+        padding: 8px 4px;
+        font-size: 12px;
+    }
+}
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+
+    .back-link span:last-child {
+        display: none;
+    }
+
+
+    .header-title {
+        font-size: 16px;
+    }
+
+
+    .customer-name {
+        font-size: 15px;
+    }
+
+
+    .address-text {
+        font-size: 13px;
+    }
+
+
+    .address-type,
+    .default-badge {
+        font-size: 8px;
+
+        padding: 3px 7px;
+    }
+
+
+    .continue-button {
+        font-size: 13px;
+    }
+
+}

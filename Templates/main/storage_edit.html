@@ -1,0 +1,47 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Storage Edit Page</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/storage_edit.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 py-5">
+            <div class="form-card">
+
+                <h3 class="form-title">Storage Edit</h3>
+
+                <form action="{% url 'storage_edit' storage.id %}" method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <input
+                            type="text"
+                            name="size"
+                            class="form-control custom-input"
+                            value="{{ storage.size }}"
+                            placeholder="Storage Size"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn form-btn w-100">
+                        Update Storage
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

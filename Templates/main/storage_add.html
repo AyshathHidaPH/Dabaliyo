@@ -1,0 +1,37 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title> Add storage Page </title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/storage_add.css' %}">
+{% endblock %}
+{% block content %}
+
+
+
+
+<div class="container-fluid py-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 py-5">  
+                  <div class="form-card">
+
+            <h3 class="form-title">Storage</h3>
+
+            <form action="{% url 'storage_add' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control custom-input" placeholder="size" name="size">
+                </div>
+                
+                <button type="submit" class="btn form-btn w-100">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock %}

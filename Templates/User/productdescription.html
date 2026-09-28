@@ -1,0 +1,1069 @@
+{% extends "user/index.html" %}
+
+{% load static %}
+
+{% block title %}
+<title>{{ product.name }} | Dabaliyo</title>
+{% endblock %}
+
+
+{% block style %}
+
+<link rel="stylesheet"
+      href="{% static 'css/productdescription.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="product-page">
+
+    <div class="product-container">
+
+
+        <!-- =========================================
+             BACK TO PRODUCTS
+        ========================================== -->
+
+        <div class="back-section">
+
+            <a href="{% url 'productpage' %}"
+               class="back-products">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back to Products
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =========================================
+             MAIN PRODUCT
+        ========================================== -->
+
+        <div class="product-layout">
+
+
+            <!-- =====================================
+                 LEFT - PRODUCT IMAGE
+            ====================================== -->
+
+            <div class="product-image-card">
+
+                <div class="product-image-wrapper">
+
+                    {% if product.discount_price %}
+
+                    <span class="sale-badge">
+                        Sale
+                    </span>
+
+                    {% endif %}
+
+
+                    {% if product.image %}
+
+                    <img src="{{ product.image.url }}"
+                         alt="{{ product.name }}"
+                         class="product-main-image">
+
+                    {% else %}
+
+                    <div class="no-image">
+
+                        <i class="fa-regular fa-image"></i>
+
+                        <span>No Image</span>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 RIGHT - PRODUCT DETAILS
+            ====================================== -->
+
+            <div class="product-details-card">
+
+
+                <!-- BRAND -->
+
+                {% if product.brand %}
+
+                <div class="product-brand">
+                    {{ product.brand.name }}
+                </div>
+
+                {% endif %}
+
+
+
+                <!-- PRODUCT NAME -->
+
+                <h1 class="product-title">
+                    {{ product.name }}
+                </h1>
+
+
+
+                <!-- =================================
+                     RATING
+                ================================== -->
+
+                <div class="rating-section">
+
+                    <div class="stars">
+
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+
+                    </div>
+
+                    <strong>4.8</strong>
+
+                    <span>
+                        (245 reviews)
+                    </span>
+
+                </div>
+
+
+
+                <!-- =================================
+                     PRICE
+                ================================== -->
+
+                <div class="price-section">
+
+                    {% if product.discount_price %}
+
+                    <span class="current-price">
+                        ₹{{ product.discount_price }}
+                    </span>
+
+                    <span class="old-price">
+                        ₹{{ product.price }}
+                    </span>
+
+                    {% else %}
+
+                    <span class="current-price">
+                        ₹{{ product.price }}
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <div class="divider"></div>
+
+
+
+                <!-- =================================
+                     STORAGE + COLOR
+                ================================== -->
+
+                <div class="product-info-grid">
+
+
+                    <!-- STORAGE -->
+
+                    <div class="info-card">
+
+                        <div class="info-icon">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+
+                        <div class="info-content">
+
+                            <span class="info-label">
+                                STORAGE
+                            </span>
+
+                            <strong>
+                                {% if product.storage %}
+                                    {{ product.storage.size }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- COLOR -->
+
+                    <div class="info-card">
+
+                        <div class="info-icon">
+
+                            <i class="fa-solid fa-palette"></i>
+
+                        </div>
+
+                        <div class="info-content">
+
+                            <span class="info-label">
+                                COLOR
+                            </span>
+
+                            <strong>
+
+                                {% if product.color %}
+                                    {{ product.color.color }}
+                                {% else %}
+                                    -
+                                {% endif %}
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================
+                     AVAILABILITY
+                ================================== -->
+
+                {% if product.stock > 0 %}
+
+                <div class="availability available">
+
+                    <div class="availability-icon">
+
+                        <i class="fa-solid fa-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="info-label">
+                            AVAILABILITY
+                        </span>
+
+                        <strong>
+                            In Stock
+                        </strong>
+
+                        <small>
+                            {{ product.stock }} units available
+                        </small>
+
+                    </div>
+
+                </div>
+
+                {% else %}
+
+                <div class="availability unavailable">
+
+                    <div class="availability-icon">
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span class="info-label">
+                            AVAILABILITY
+                        </span>
+
+                        <strong>
+                            Out of Stock
+                        </strong>
+
+                        <small>
+                            Currently unavailable
+                        </small>
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+
+                <!-- =================================
+                     DESCRIPTION
+                ================================== -->
+
+                <div class="description-box">
+
+                    <h2>
+                        Description
+                    </h2>
+
+                    <p>
+
+                        {% if product.description %}
+
+                            {{ product.description }}
+
+                        {% else %}
+
+                            No description available.
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+
+
+                <!-- =================================
+                     PRODUCT ACTIONS
+                ================================== -->
+
+                <div class="product-actions">
+
+
+                    <!-- ADD TO CART -->
+
+                    <form action="{% url 'add_to_cart' product.id %}"
+                          method="POST"
+                          class="cart-form"
+                          id="cartForm">
+
+                        {% csrf_token %}
+
+                        <input type="hidden"
+                               name="quantity"
+                               id="cartQuantity"
+                               value="1">
+
+
+                        {% if product.stock > 0 %}
+
+                        <button type="submit"
+                                class="add-cart-button"
+                                id="addCartButton">
+
+                            <i class="fa-solid fa-cart-shopping"></i>
+
+                            <span id="cartButtonText">
+                                Add to Cart
+                            </span>
+
+                        </button>
+
+                        {% else %}
+
+                        <button type="button"
+                                class="add-cart-button disabled-button"
+                                disabled>
+
+                            <i class="fa-solid fa-cart-shopping"></i>
+
+                            Out of Stock
+
+                        </button>
+
+                        {% endif %}
+
+                    </form>
+
+
+
+                    <!-- =================================
+                         WISHLIST
+                    ================================== -->
+
+                    {% if user.is_authenticated %}
+
+                    <form action="{% if is_in_wishlist %}{% url 'remove_from_wishlist' product.id %}{% else %}{% url 'add_to_wishlist' product.id %}{% endif %}"
+                          method="POST"
+                          class="wishlist-form"
+                          id="wishlistForm">
+
+                        {% csrf_token %}
+
+                        <button type="submit"
+                                class="wishlist-button {% if is_in_wishlist %}wishlist-active{% endif %}"
+                                id="wishlistButton"
+                                aria-label="Wishlist">
+
+                            <i id="wishlistIcon"
+                               class="{% if is_in_wishlist %}fa-solid{% else %}fa-regular{% endif %} fa-heart">
+                            </i>
+
+                        </button>
+
+                    </form>
+
+                    {% else %}
+
+                    <a href="{% url 'login' %}"
+                       class="wishlist-button">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- =================================
+                     BENEFITS
+                ================================== -->
+
+                <div class="benefits-section">
+
+
+                    <div class="benefit">
+
+                        <div class="benefit-icon">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Genuine Product
+                            </strong>
+
+                            <small>
+                                100% authentic
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="benefit">
+
+                        <div class="benefit-icon">
+
+                            <i class="fa-solid fa-truck-fast"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Fast Delivery
+                            </strong>
+
+                            <small>
+                                Safe & secure delivery
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="benefit">
+
+                        <div class="benefit-icon">
+
+                            <i class="fa-solid fa-headset"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Support
+                            </strong>
+
+                            <small>
+                                Customer assistance
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================
+             RELATED PRODUCTS
+        ========================================== -->
+
+        <div class="related-section">
+
+            <h2>
+                Related Products
+            </h2>
+
+
+            {% if related_products %}
+
+            <div class="related-grid">
+
+                {% for related in related_products %}
+
+                <a href="{% url 'productdescription' related.id %}"
+                   class="related-card">
+
+                    {% if related.image %}
+
+                    <img src="{{ related.image.url }}"
+                         alt="{{ related.name }}">
+
+                    {% endif %}
+
+                    <div class="related-info">
+
+                        <h3>
+                            {{ related.name }}
+                        </h3>
+
+                        <p>
+                            ₹{{ related.price }}
+                        </p>
+
+                    </div>
+
+                </a>
+
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     SUCCESS / ERROR TOAST
+=================================================== -->
+
+<div id="messageToast"
+     class="message-toast">
+
+    <div class="toast-icon"
+         id="toastIcon">
+
+        <i class="fa-solid fa-check"></i>
+
+    </div>
+
+    <div class="toast-content">
+
+        <strong id="toastTitle">
+            Success
+        </strong>
+
+        <span id="toastMessage">
+            Done successfully
+        </span>
+
+    </div>
+
+    <button type="button"
+            class="toast-close"
+            onclick="hideToast()">
+
+        <i class="fa-solid fa-xmark"></i>
+
+    </button>
+
+</div>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+=================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* =================================================
+       TOAST
+    ================================================= */
+
+    const toast = document.getElementById("messageToast");
+    const toastTitle = document.getElementById("toastTitle");
+    const toastMessage = document.getElementById("toastMessage");
+    const toastIcon = document.getElementById("toastIcon");
+
+    let toastTimer;
+
+
+    window.showToast = function (
+        title,
+        message,
+        type = "success"
+    ) {
+
+        clearTimeout(toastTimer);
+
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+
+
+        toast.classList.remove(
+            "show",
+            "toast-error"
+        );
+
+
+        if (type === "error") {
+
+            toast.classList.add("toast-error");
+
+            toastIcon.innerHTML =
+                '<i class="fa-solid fa-xmark"></i>';
+
+        }
+
+        else {
+
+            toastIcon.innerHTML =
+                '<i class="fa-solid fa-check"></i>';
+
+        }
+
+
+        toast.classList.add("show");
+
+
+        toastTimer = setTimeout(function () {
+
+            hideToast();
+
+        }, 3000);
+
+    };
+
+
+    window.hideToast = function () {
+
+        toast.classList.remove("show");
+
+    };
+
+
+
+    /* =================================================
+       ADD TO CART
+    ================================================= */
+
+    const cartForm =
+        document.getElementById("cartForm");
+
+    const cartButton =
+        document.getElementById("addCartButton");
+
+    const cartButtonText =
+        document.getElementById("cartButtonText");
+
+
+    if (cartForm && cartButton) {
+
+
+        cartForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const csrfToken =
+                    cartForm.querySelector(
+                        "[name=csrfmiddlewaretoken]"
+                    ).value;
+
+
+                const originalText =
+                    cartButtonText
+                        ? cartButtonText.textContent
+                        : "Add to Cart";
+
+
+                cartButton.disabled = true;
+
+
+                if (cartButtonText) {
+
+                    cartButtonText.textContent =
+                        "Adding...";
+
+                }
+
+
+                fetch(
+                    cartForm.action,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "X-CSRFToken":
+                                csrfToken,
+
+                            "X-Requested-With":
+                                "XMLHttpRequest"
+
+                        }
+
+                    }
+                )
+
+                .then(function (response) {
+
+                    /*
+                     * Your view may redirect to the cart
+                     * page after adding the product.
+                     *
+                     * fetch follows that redirect automatically.
+                     */
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Cart request failed"
+                        );
+
+                    }
+
+
+                    return response;
+
+                })
+
+
+                .then(function () {
+
+
+                    if (cartButtonText) {
+
+                        cartButtonText.textContent =
+                            "Added to Cart";
+
+                    }
+
+
+                    cartButton.classList.add(
+                        "cart-success"
+                    );
+
+
+                    /*
+                     * Update navbar cart count if
+                     * .cart-count exists.
+                     */
+
+                    const cartCount =
+                        document.querySelector(
+                            ".cart-count"
+                        );
+
+
+                    if (cartCount) {
+
+                        const currentCount =
+                            parseInt(
+                                cartCount.textContent
+                            ) || 0;
+
+
+                        cartCount.textContent =
+                            currentCount + 1;
+
+                    }
+
+
+                    showToast(
+                        "Success!",
+                        "Product successfully added to cart."
+                    );
+
+
+                    setTimeout(function () {
+
+                        if (cartButtonText) {
+
+                            cartButtonText.textContent =
+                                originalText;
+
+                        }
+
+
+                        cartButton.classList.remove(
+                            "cart-success"
+                        );
+
+
+                        cartButton.disabled =
+                            false;
+
+                    }, 1800);
+
+                })
+
+
+                .catch(function (error) {
+
+                    console.error(
+                        "Add to cart error:",
+                        error
+                    );
+
+
+                    if (cartButtonText) {
+
+                        cartButtonText.textContent =
+                            originalText;
+
+                    }
+
+
+                    cartButton.disabled = false;
+
+
+                    showToast(
+                        "Error",
+                        "Could not add product to cart.",
+                        "error"
+                    );
+
+                });
+
+            }
+        );
+
+    }
+
+
+
+    /* =================================================
+       WISHLIST TOGGLE
+    ================================================= */
+
+    const wishlistForm =
+        document.getElementById("wishlistForm");
+
+    const wishlistButton =
+        document.getElementById("wishlistButton");
+
+    const wishlistIcon =
+        document.getElementById("wishlistIcon");
+
+
+    if (wishlistForm &&
+        wishlistButton &&
+        wishlistIcon) {
+
+
+        wishlistForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const csrfToken =
+                    wishlistForm.querySelector(
+                        "[name=csrfmiddlewaretoken]"
+                    ).value;
+
+
+                const currentAction =
+                    wishlistForm.action;
+
+
+                const isRemoving =
+                    currentAction.includes(
+                        "remove_from_wishlist"
+                    );
+
+
+                wishlistButton.disabled =
+                    true;
+
+
+                fetch(
+                    currentAction,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "X-CSRFToken":
+                                csrfToken,
+
+                            "X-Requested-With":
+                                "XMLHttpRequest"
+
+                        }
+
+                    }
+                )
+
+                .then(function (response) {
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Wishlist request failed"
+                        );
+
+                    }
+
+
+                    return response;
+
+                })
+
+
+                .then(function () {
+
+
+                    if (isRemoving) {
+
+                        /*
+                         * =========================
+                         * REMOVE FROM WISHLIST
+                         * =========================
+                         */
+
+                        wishlistIcon.classList.remove(
+                            "fa-solid"
+                        );
+
+                        wishlistIcon.classList.add(
+                            "fa-regular"
+                        );
+
+
+                        wishlistButton.classList.remove(
+                            "wishlist-active"
+                        );
+
+
+                        wishlistForm.action =
+                            "{% url 'add_to_wishlist' product.id %}";
+
+
+                        showToast(
+                            "Removed",
+                            "Product removed from wishlist."
+                        );
+
+                    }
+
+                    else {
+
+                        /*
+                         * =========================
+                         * ADD TO WISHLIST
+                         * =========================
+                         */
+
+                        wishlistIcon.classList.remove(
+                            "fa-regular"
+                        );
+
+                        wishlistIcon.classList.add(
+                            "fa-solid"
+                        );
+
+
+                        wishlistButton.classList.add(
+                            "wishlist-active"
+                        );
+
+
+                        wishlistForm.action =
+                            "{% url 'remove_from_wishlist' product.id %}";
+
+
+                        showToast(
+                            "Added!",
+                            "Product added to wishlist."
+                        );
+
+                    }
+
+
+                    wishlistButton.disabled =
+                        false;
+
+                })
+
+
+                .catch(function (error) {
+
+                    console.error(
+                        "Wishlist error:",
+                        error
+                    );
+
+
+                    wishlistButton.disabled =
+                        false;
+
+
+                    showToast(
+                        "Error",
+                        "Could not update wishlist.",
+                        "error"
+                    );
+
+                });
+
+            }
+        );
+
+    }
+
+});
+
+</script>
+
+
+{% endblock %}

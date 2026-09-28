@@ -1,0 +1,37 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title>brand edit Page </title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/brand_edit.css' %}">
+{% endblock %}
+{% block content %}
+
+
+
+
+    <div class="container-fluid py-5 my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4 py-5">
+        <div class="form-card">
+            <h3 class="form-title">Brand Edit</h3>
+            <form action="{% url 'brand_edit' brand.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control custom-input" value="{{ brand.name }}" placeholder="Brand Name" name="name">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Upload logo</label>
+                    <input type="file" name="logo" class="form-control" accept="image/*">
+                </div>
+                <button type="submit" class="btn form-btn w-100">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,971 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Dabaliyo Admin Dashboard</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="admin-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="admin-sidebar">
+
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+
+            {% comment %} <div class="sidebar-logo">
+                <i class="fa-solid fa-gauge-high"></i>
+            </div> {% endcomment %}
+
+            <div class="sidebar-title">
+                <strong>Admin Panel</strong>
+                {% comment %} <span>Dabaliyo</span> {% endcomment %}
+            </div>
+
+        </div>
+
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar-menu">
+
+            <!-- Dashboard -->
+            <a href="{% url 'dashboard' %}"
+               class="sidebar-link active">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>Dashboard</span>
+
+            </a>
+
+
+            <!-- Products -->
+            <a href="{% url 'product_dashboard' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-mobile-screen-button"></i>
+
+                <span>Products</span>
+
+            </a>
+
+
+            <!-- Orders -->
+            <a href="{% url 'admin_orders' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span>Orders</span>
+
+            </a>
+
+
+            <!-- Brands -->
+            <a href="{% url 'brand_page' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-tags"></i>
+
+                <span>Brands</span>
+
+            </a>
+
+
+            <!-- Colors -->
+            <a href="{% url 'color_page' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-palette"></i>
+
+                <span>Colors</span>
+
+            </a>
+
+
+            <!-- Storage -->
+            <a href="{% url 'storage_page' %}"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-hard-drive"></i>
+
+                <span>Storage</span>
+
+            </a>
+
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+
+            <!-- Settings -->
+            <a href="#"
+               class="sidebar-link">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+
+            <!-- Logout -->
+            <a href="{% url 'logout' %}"
+               class="sidebar-link logout-link">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>Logout</span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN DASHBOARD
+    ====================================================== -->
+
+    <main class="dashboard-content">
+
+
+        <!-- Mobile Top Bar -->
+        <div class="mobile-dashboard-header">
+
+            {% comment %} <button class="sidebar-toggle"
+                    type="button"
+                    onclick="toggleSidebar()">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button> {% endcomment %}
+
+            <div>
+                <strong>Dabaliyo Admin</strong>
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             WELCOME
+        ================================================== -->
+
+        <div class="dashboard-welcome">
+
+            <div>
+
+                <h1>
+                    Welcome back, {{ request.user.username }} 
+                </h1>
+
+                <p>
+                    Here's what's happening with your store today.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SUMMARY CARDS
+        ================================================== -->
+
+        <div class="dashboard-cards">
+
+
+            <!-- Total Orders -->
+            <div class="dashboard-card">
+
+                <div class="card-icon orders-icon">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                </div>
+
+                <div class="card-content">
+
+                    <p>Total Orders</p>
+
+                    <h2>
+                        {{ total_orders }}
+                    </h2>
+
+                    <span>
+                        All orders
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Revenue -->
+            <div class="dashboard-card">
+
+                <div class="card-icon revenue-icon">
+
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                </div>
+
+                <div class="card-content">
+
+                    <p>Revenue</p>
+
+                    <h2>
+                        ₹{{ revenue|floatformat:2 }}
+                    </h2>
+
+                    <span>
+                        From valid orders
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Profit -->
+            <div class="dashboard-card">
+
+                <div class="card-icon profit-icon">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                </div>
+
+                <div class="card-content">
+
+                    <p>Profit</p>
+
+                    <h2>
+                        ₹{{ profit|floatformat:2 }}
+                    </h2>
+
+                    <span>
+                        Estimated profit
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Customers -->
+            <div class="dashboard-card">
+
+                <div class="card-icon customers-icon">
+
+                    <i class="fa-solid fa-users"></i>
+
+                </div>
+
+                <div class="card-content">
+
+                    <p>Customers</p>
+
+                    <h2>
+                        {{ total_customers }}
+                    </h2>
+
+                    <span>
+                        Registered customers
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Out of Stock -->
+            <div class="dashboard-card">
+
+                <div class="card-icon stock-icon">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                </div>
+
+                <div class="card-content">
+
+                    <p>Out of Stock</p>
+
+                    <h2>
+                        {{ out_of_stock }}
+                    </h2>
+
+                    <span>
+                        Products unavailable
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Low Stock -->
+            <div class="dashboard-card">
+
+                <div class="card-icon low-stock-icon">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                </div>
+
+                <div class="card-content">
+
+                    <p>Low Stock</p>
+
+                    <h2>
+                        {{ low_stock }}
+                    </h2>
+
+                    <span>
+                        5 or fewer items
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SALES + ORDER STATUS
+        ================================================== -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- Sales Overview -->
+
+            <section class="dashboard-section sales-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Sales Overview
+                        </h3>
+
+                        <p>
+                            Revenue for the last 7 days
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <canvas id="salesChart"></canvas>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- Order Status -->
+
+            <section class="dashboard-section status-section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>
+                            Order Status
+                        </h3>
+
+                        <p>
+                            Current order overview
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="status-list">
+
+
+                    <!-- Pending -->
+                    <div class="status-row">
+
+                        <span>
+
+                            <i class="status-dot pending"></i>
+
+                            Pending
+
+                        </span>
+
+                        <strong>
+                            {{ pending_orders }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Confirmed -->
+                    <div class="status-row">
+
+                        <span>
+
+                            <i class="status-dot confirmed"></i>
+
+                            Confirmed
+
+                        </span>
+
+                        <strong>
+                            {{ confirmed_orders }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Shipped -->
+                    <div class="status-row">
+
+                        <span>
+
+                            <i class="status-dot shipped"></i>
+
+                            Shipped
+
+                        </span>
+
+                        <strong>
+                            {{ shipped_orders }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Delivered -->
+                    <div class="status-row">
+
+                        <span>
+
+                            <i class="status-dot delivered"></i>
+
+                            Delivered
+
+                        </span>
+
+                        <strong>
+                            {{ delivered_orders }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- Cancelled -->
+                    <div class="status-row">
+
+                        <span>
+
+                            <i class="status-dot cancelled"></i>
+
+                            Cancelled
+
+                        </span>
+
+                        <strong>
+                            {{ cancelled_orders }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- =================================================
+             RECENT ORDERS
+        ================================================== -->
+
+        <section class="dashboard-section full-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h3>
+                        Recent Orders
+                    </h3>
+
+                    <p>
+                        Latest customer orders
+                    </p>
+
+                </div>
+
+
+                <a href="{% url 'admin_orders' %}"
+                   class="view-all-btn">
+
+                    View All
+
+                </a>
+
+            </div>
+
+
+
+            <div class="table-wrapper">
+
+                <table class="dashboard-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Order</th>
+
+                            <th>Customer</th>
+
+                            <th>Date</th>
+
+                            <th>Amount</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for order in recent_orders %}
+
+                        <tr>
+
+
+                            <!-- Order -->
+                            <td>
+
+                                <strong>
+                                    #{{ order.id }}
+                                </strong>
+
+                            </td>
+
+
+
+                            <!-- Customer -->
+                            <td>
+
+                                <div class="customer-cell">
+
+                                    <div class="customer-avatar">
+
+                                        {{ order.user.username|first|upper }}
+
+                                    </div>
+
+                                    <span>
+                                        {{ order.user.username }}
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- Date -->
+                            <td>
+
+                                {{ order.created_at|date:"d M Y" }}
+
+                            </td>
+
+
+
+                            <!-- Amount -->
+                            <td>
+
+                                <strong>
+                                    ₹{{ order.grand_total|floatformat:2 }}
+                                </strong>
+
+                            </td>
+
+
+
+                            <!-- Status -->
+                            <td>
+
+                                <span class="order-status status-{{ order.status|lower }}">
+
+                                    {{ order.status }}
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- View -->
+                            <td>
+
+                                <a href="{% url 'admin_order_detail' order.id %}"
+                                   class="view-order-btn">
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td colspan="6"
+                                class="empty-table">
+
+                                No orders found.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             INVENTORY ALERTS
+        ================================================== -->
+
+        <section class="dashboard-section full-section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h3>
+                        Inventory Alerts
+                    </h3>
+
+                    <p>
+                        Products that need your attention
+                    </p>
+
+                </div>
+
+
+                <a href="{% url 'product_dashboard' %}"
+                   class="view-all-btn">
+
+                    Manage Stock
+
+                </a>
+
+            </div>
+
+
+
+            <div class="inventory-grid">
+
+
+                {% for product in inventory_alerts %}
+
+
+                <div class="inventory-card">
+
+
+                    <!-- Product Image -->
+
+                    <div class="inventory-image">
+
+                        {% if product.image %}
+
+                            <img src="{{ product.image.url }}"
+                                 alt="{{ product.name }}">
+
+                        {% else %}
+
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- Product Information -->
+
+                    <div class="inventory-info">
+
+                        <h4>
+                            {{ product.name }}
+                        </h4>
+
+
+                        <p>
+                            {{ product.storage }}
+                        </p>
+
+
+                        {% if product.stock == 0 %}
+
+                            <span class="inventory-danger">
+
+                                Out of Stock
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="inventory-warning">
+
+                                Only {{ product.stock }} left
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+
+
+                {% empty %}
+
+                <div class="no-inventory">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <p>
+                        All products have sufficient stock.
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     MOBILE SIDEBAR OVERLAY
+====================================================== -->
+
+<div class="sidebar-overlay"
+     onclick="closeSidebar()">
+</div>
+
+
+
+<!-- =====================================================
+     CHART DATA
+====================================================== -->
+
+{{ chart_labels|json_script:"chart-labels" }}
+
+{{ chart_values|json_script:"chart-values" }}
+
+
+
+<!-- =====================================================
+     CHART.JS
+====================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+    const chartLabels = JSON.parse(
+        document.getElementById("chart-labels").textContent
+    );
+
+
+    const chartValues = JSON.parse(
+        document.getElementById("chart-values").textContent
+    );
+
+
+    const chartElement = document.getElementById("salesChart");
+
+
+    if (chartElement) {
+
+        const ctx = chartElement.getContext("2d");
+
+
+        new Chart(ctx, {
+
+            type: "line",
+
+            data: {
+
+                labels: chartLabels,
+
+                datasets: [
+
+                    {
+
+                        label: "Revenue",
+
+                        data: chartValues,
+
+                        borderWidth: 2,
+
+                        tension: 0.4,
+
+                        fill: true
+
+                    }
+
+                ]
+
+            },
+
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+
+                plugins: {
+
+                    legend: {
+
+                        display: false
+
+                    }
+
+                },
+
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            callback: function(value) {
+
+                                return "₹" + value;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+
+
+    /* =====================================================
+       MOBILE SIDEBAR
+    ====================================================== */
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.querySelector(".admin-sidebar");
+
+        const overlay =
+            document.querySelector(".sidebar-overlay");
+
+
+        sidebar.classList.toggle("sidebar-open");
+
+        overlay.classList.toggle("overlay-show");
+
+    }
+
+
+
+    function closeSidebar() {
+
+        const sidebar =
+            document.querySelector(".admin-sidebar");
+
+        const overlay =
+            document.querySelector(".sidebar-overlay");
+
+
+        sidebar.classList.remove("sidebar-open");
+
+        overlay.classList.remove("overlay-show");
+
+    }
+
+</script>
+
+{% endblock %}

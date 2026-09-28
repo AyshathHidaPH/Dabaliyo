@@ -1,0 +1,929 @@
+{% comment %} {% extends "user/index.html" %}
+{% load static %}
+{% block title %}
+<title>Address Page</title>
+{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/select_address.css' %}">
+{% endblock %}
+{% block content %}
+
+
+
+<header class="address-header">
+    <a href="{% url 'checkout' %}" class="back-link">
+
+        <span class="back-arrow">←</span>
+
+        <span>Back to Checkout</span>
+
+    </a>
+
+
+    <h1 class="header-title">
+        SELECT ADDRESS
+    </h1>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="address-page">
+
+
+    <!-- =================================================
+         ADD NEW ADDRESS
+    ================================================== -->
+
+    <a href="{% url 'add_address' %}" class="add-address-button">
+
+        <span class="plus-icon text-decoration-none">+</span>
+
+        <span>
+            ADD NEW ADDRESS
+        </span>
+
+    </a>
+
+
+
+    <!-- =================================================
+         SAVED ADDRESS SECTION
+    ================================================== -->
+
+    <div class="section-title">
+
+        DEFAULT ADDRESS
+
+    </div>
+
+
+
+    <!-- =================================================
+         ADDRESS FORM
+    ================================================== -->
+
+    <form method="POST" action="{% url 'confirm_order' %}" id="addressForm">
+
+        {% csrf_token %}
+
+
+        <div class="address-list">
+
+
+            {% for address in addresses %}
+
+
+            <!-- =========================================
+                 ADDRESS CARD
+            ========================================== -->
+
+            <label class="address-card" for="address-{{ address.id }}">
+
+
+                <!-- RADIO -->
+
+                <div class="radio-container">
+
+                    <input type="radio" name="address_id" value="{{ address.id }}" id="address-{{ address.id }}"
+                        class="address-radio">
+
+                    <span class="custom-radio"></span>
+
+                </div>
+
+
+
+                <!-- ADDRESS INFORMATION -->
+
+                <div class="address-information">
+
+
+                    <!-- NAME + TYPE -->
+
+                    <div class="name-row">
+
+
+                        <span class="customer-name">
+
+                            {{ address.name }}
+
+                        </span>
+
+
+                        <span class="address-type">
+
+                            HOME
+
+                        </span>
+
+
+                        {% if address.is_default %}
+
+                        <span class="default-badge">
+
+                            DEFAULT
+
+                        </span>
+
+                        {% endif %}
+
+
+                    </div>
+
+
+
+                    <!-- PHONE -->
+
+                    {% if address.phone %}
+
+                    <div class="phone-number">
+
+                        {{ address.phone }}
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="address-text">
+
+                        {{ address.address }}
+
+                        <br>
+
+                        {{ address.city }},
+                        {{ address.state }}
+                        -
+                        {{ address.pincode }}
+
+                    </div>
+
+
+
+                    <!-- LANDMARK -->
+
+                    {% if address.landmark %}
+
+                    <div class="landmark">
+
+                        Landmark:
+                        {{ address.landmark }}
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- ACTION BUTTONS -->
+
+                    <div class="address-actions">
+
+
+                        <button type="button" class="edit-button" onclick="editAddress(event, '{{ address.id }}')">
+
+                            EDIT
+
+                        </button>
+
+
+                        <form method="POST" action="{% url 'delete_address' address.id %}" class="delete-form">
+
+                            {% csrf_token %}
+
+                            <button type="button" class="delete-button" onclick="deleteAddress('{{ address.id }}')">
+                                DELETE
+                            </button>
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </label>
+
+
+            {% empty %}
+
+
+            <!-- =========================================
+                 NO ADDRESS
+            ========================================== -->
+
+            <div class="no-address">
+
+                <div class="no-address-icon">
+                    📍
+                </div>
+
+                <h3>
+                    No saved address
+                </h3>
+
+                <p>
+                    Add a new address to continue with your order.
+                </p>
+
+                <button type="button" class="no-address-button" onclick="openModal()">
+
+                    ADD NEW ADDRESS
+
+                </button>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    </form>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     BOTTOM BUTTON
+===================================================== -->
+
+<div class="bottom-bar">
+
+
+    <button type="submit" form="addressForm" class="continue-button" id="continueButton" disabled>
+
+        <span id="continueText">
+            PLEASE CHOOSE ADDRESS
+        </span>
+
+    </button>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     ADD ADDRESS MODAL
+===================================================== -->
+
+<div class="modal-overlay" id="addressModal">
+
+
+    <div class="address-modal">
+
+
+        <!-- =============================================
+             MODAL HEADER
+        ============================================== -->
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>
+                    Add New Address
+                </h2>
+
+                <p>
+                    Enter your delivery details
+                </p>
+
+            </div>
+
+
+            <button type="button" class="close-button" id="closeModal">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =============================================
+             NEW ADDRESS FORM
+        ============================================== -->
+
+        <form method="POST" action="" id="newAddressForm">
+
+            {% csrf_token %}
+
+
+            <div class="modal-body">
+
+
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Full Name
+                        <span>*</span>
+
+                    </label>
+
+                    <input type="text" name="full_name" placeholder="Enter your full name" required>
+
+                </div>
+
+
+
+                <!-- PHONE + EMAIL -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Phone Number
+                            <span>*</span>
+
+                        </label>
+
+                        <input type="tel" name="phone" placeholder="10 digit phone number" maxlength="10"
+                            pattern="[0-9]{10}" inputmode="numeric" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+
+                            Email
+
+                        </label>
+
+                        <input type="email" name="email" placeholder="Enter your email">
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- COMPLETE ADDRESS -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Complete Address
+                        <span>*</span>
+
+                    </label>
+
+                    <textarea name="address" placeholder="House No., Building, Street, Area" required></textarea>
+
+                </div>
+
+
+
+                <!-- LANDMARK -->
+
+                <div class="form-group">
+
+                    <label>
+                        Landmark
+                    </label>
+
+                    <input type="text" name="landmark" placeholder="Nearby landmark (optional)">
+
+                </div>
+
+
+
+                <!-- CITY + STATE -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label>
+
+                            City
+                            <span>*</span>
+
+                        </label>
+
+                        <input type="text" name="city" placeholder="Enter city" required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+
+                            State
+                            <span>*</span>
+
+                        </label>
+
+                        <select name="state" required>
+
+                            <option value="">
+                                Select State
+                            </option>
+
+                            <option value="Kerala">
+                                Kerala
+                            </option>
+
+                            <option value="Karnataka">
+                                Karnataka
+                            </option>
+
+                            <option value="Tamil Nadu">
+                                Tamil Nadu
+                            </option>
+
+                            <option value="Andhra Pradesh">
+                                Andhra Pradesh
+                            </option>
+
+                            <option value="Telangana">
+                                Telangana
+                            </option>
+
+                            <option value="Maharashtra">
+                                Maharashtra
+                            </option>
+
+                            <option value="Goa">
+                                Goa
+                            </option>
+
+                            <option value="Gujarat">
+                                Gujarat
+                            </option>
+
+                            <option value="Rajasthan">
+                                Rajasthan
+                            </option>
+
+                            <option value="Delhi">
+                                Delhi
+                            </option>
+
+                            <option value="West Bengal">
+                                West Bengal
+                            </option>
+
+                            <option value="Uttar Pradesh">
+                                Uttar Pradesh
+                            </option>
+
+                            <option value="Bihar">
+                                Bihar
+                            </option>
+
+                            <option value="Punjab">
+                                Punjab
+                            </option>
+
+                            <option value="Haryana">
+                                Haryana
+                            </option>
+
+                            <option value="Odisha">
+                                Odisha
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- PINCODE -->
+
+                <div class="form-group">
+
+                    <label>
+
+                        Pincode
+                        <span>*</span>
+
+                    </label>
+
+                    <input type="text" name="pincode" placeholder="Enter 6 digit pincode" maxlength="6"
+                        pattern="[0-9]{6}" inputmode="numeric" required>
+
+                </div>
+
+
+
+                <!-- ADDRESS TYPE -->
+
+                <div class="form-group">
+
+                    <label>
+                        Address Type
+                    </label>
+
+
+                    <div class="address-types">
+
+
+                        <label class="type-option">
+
+                            <input type="radio" name="address_type" value="Home" checked>
+
+                            <span>
+                                HOME
+                            </span>
+
+                        </label>
+
+
+                        <label class="type-option">
+
+                            <input type="radio" name="address_type" value="Office">
+
+                            <span>
+                                OFFICE
+                            </span>
+
+                        </label>
+
+
+                        <label class="type-option">
+
+                            <input type="radio" name="address_type" value="Other">
+
+                            <span>
+                                OTHER
+                            </span>
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DEFAULT ADDRESS -->
+
+                <label class="default-address">
+
+                    <input type="checkbox" name="is_default">
+
+                    <span>
+                        Make this my default address
+                    </span>
+
+                </label>
+
+
+            </div>
+
+
+
+            <!-- =========================================
+                 MODAL FOOTER
+            ========================================== -->
+
+            <div class="modal-footer">
+
+
+                <button type="button" class="cancel-button" id="cancelModal">
+
+                    CANCEL
+
+                </button>
+
+
+                <button type="submit" class="save-button">
+
+                    SAVE ADDRESS
+
+                </button>
+
+
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const addressRadios =
+            document.querySelectorAll(".address-radio");
+
+        const addressCards =
+            document.querySelectorAll(".address-card");
+
+        const continueButton =
+            document.getElementById("continueButton");
+
+        const continueText =
+            document.getElementById("continueText");
+
+        const addressForm =
+            document.getElementById("addressForm");
+
+
+        // Select address
+        addressRadios.forEach(function (radio) {
+
+            radio.addEventListener("change", function () {
+
+                addressCards.forEach(function (card) {
+                    card.classList.remove("selected");
+                });
+
+                const currentCard =
+                    this.closest(".address-card");
+
+                if (currentCard) {
+                    currentCard.classList.add("selected");
+                }
+
+                continueButton.disabled = false;
+                continueButton.classList.add("active");
+
+                continueText.textContent = "OK";
+            });
+
+        });
+
+
+        // Confirm before submitting
+        addressForm.addEventListener("submit", function (event) {
+
+            const confirmed = confirm(
+                "Are you sure you want to place this order?"
+            );
+
+            if (!confirmed) {
+                event.preventDefault();
+            }
+
+        });
+
+    });
+</script>
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+    /* =====================================================
+       SELECT ADDRESS
+    ===================================================== */
+
+    const addressRadios =
+        document.querySelectorAll(".address-radio");
+
+    const addressCards =
+        document.querySelectorAll(".address-card");
+
+    const continueButton =
+        document.getElementById("continueButton");
+
+    const continueText =
+        document.getElementById("continueText");
+
+
+    addressRadios.forEach(function (radio) {
+
+        radio.addEventListener("change", function () {
+
+            // Remove selected style from all addresses
+            addressCards.forEach(function (card) {
+                card.classList.remove("selected");
+            });
+
+            // Add selected style
+            const currentCard =
+                this.closest(".address-card");
+
+            currentCard.classList.add("selected");
+
+            // Enable Place Order button
+            continueButton.disabled = false;
+
+            continueButton.classList.add("active");
+
+            // Change button text
+            continueText.textContent = "SAVE";
+
+        });
+
+    });
+
+
+    /* =====================================================
+       MODAL
+    ===================================================== */
+
+    const modal =
+        document.getElementById("addressModal");
+
+    const openButton =
+        document.getElementById("openAddressModal");
+
+    const closeButton =
+        document.getElementById("closeModal");
+
+    const cancelButton =
+        document.getElementById("cancelModal");
+
+
+    function openModal() {
+
+        modal.classList.add("show");
+
+        document.body.classList.add("modal-open");
+
+    }
+
+
+    function closeModal() {
+
+        modal.classList.remove("show");
+
+        document.body.classList.remove("modal-open");
+
+    }
+
+
+    openButton.addEventListener(
+        "click",
+        openModal
+    );
+
+
+    closeButton.addEventListener(
+        "click",
+        closeModal
+    );
+
+
+    cancelButton.addEventListener(
+        "click",
+        closeModal
+    );
+
+
+
+    /* Click outside */
+
+    modal.addEventListener(
+        "click",
+        function (event) {
+
+            if (event.target === modal) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+
+    /* Escape key */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       EDIT ADDRESS
+    ===================================================== */
+
+    function editAddress(event, addressId) {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+
+        window.location.href =
+            "/order/edit_address/"
+            + addressId
+            + "/";
+
+    }
+
+
+
+</script>
+<script>
+function deleteAddress(addressId) {
+
+    const confirmation = confirm(
+        "Are you sure you want to delete this address?"
+    );
+
+    if (!confirmation) {
+        return;
+    }
+
+    fetch("{% url 'delete_address' 0 %}".replace("0", addressId), {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": getCookie("csrftoken"),
+            "X-Requested-With": "XMLHttpRequest"
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert("Unable to delete address.");
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Something went wrong.");
+    });
+}
+
+
+function getCookie(name) {
+
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+
+                cookieValue =
+                    decodeURIComponent(
+                        cookie.substring(name.length + 1)
+                    );
+
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+</script>
+{% endblock %}
+
+</body>
+
+</html> {% endcomment %}

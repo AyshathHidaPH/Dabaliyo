@@ -1,0 +1,314 @@
+{% extends "user/index.html" %}
+{% load static %}
+
+{% block title %}
+<title>Order #{{ order.id }} | Dabaliyo</title>
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/my_orders.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<main class="order-detail-page">
+
+    <div class="order-detail-container">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <div class="detail-header">
+
+            <div class="detail-title">
+
+                <h1>
+                    Order #{{ order.id }}
+                </h1>
+
+                <p>
+                    Placed on
+                    {{ order.created_at|date:"d M Y, h:i A" }}
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'my_orders' %}"
+                class="back-orders"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to My Orders
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             ORDER STATUS
+        ================================================== -->
+
+        <div class="detail-card">
+
+            <div class="detail-order-top">
+
+                <div>
+
+                    <div class="detail-order-number">
+                        Order #{{ order.id }}
+                    </div>
+
+                    <div class="detail-order-date">
+                        {{ order.created_at|date:"d M Y, h:i A" }}
+                    </div>
+
+                </div>
+
+
+                <span
+                    class="detail-status status-{{ order.status|lower }}"
+                >
+                    {{ order.status }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ORDER ITEMS
+        ================================================== -->
+
+        <div class="detail-card">
+
+            <h2 class="detail-card-title">
+                Order Items
+            </h2>
+
+
+            {% for item in order.items.all %}
+
+            <div class="detail-product">
+
+
+                <!-- PRODUCT IMAGE -->
+
+                <div class="detail-product-image">
+
+                    {% if item.product and item.product.image %}
+
+                        <img
+                            src="{{ item.product.image.url }}"
+                            alt="{{ item.product_name }}"
+                        >
+
+                    {% else %}
+
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PRODUCT INFORMATION -->
+
+                <div class="detail-product-info">
+
+                    <h3 class="detail-product-name">
+                        {{ item.product_name }}
+                    </h3>
+
+                    <div class="detail-product-quantity">
+                        Quantity: {{ item.quantity }}
+                    </div>
+
+                    <div class="detail-product-unit-price">
+                        Price:
+                        ₹{{ item.price|floatformat:2 }}
+                    </div>
+
+                </div>
+
+
+                <!-- TOTAL -->
+
+                <div class="detail-product-price">
+
+                    ₹{{ item.total|floatformat:2 }}
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+                <div class="empty-detail-items">
+
+                    <i class="fa-solid fa-box-open"></i>
+
+                    <p>
+                        No items found for this order.
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- =================================================
+             DELIVERY ADDRESS
+        ================================================== -->
+
+        {% if order.address %}
+
+        <div class="detail-card">
+
+            <h2 class="detail-card-title">
+                Delivery Address
+            </h2>
+
+
+            <div class="shipping-address">
+
+                <div class="shipping-name">
+                    {{ order.address.name }}
+                </div>
+
+
+                {% if order.address.phone %}
+
+                <div>
+                    <strong>Phone:</strong>
+                    {{ order.address.phone }}
+                </div>
+
+                {% endif %}
+
+
+                {% if order.address.email %}
+
+                <div>
+                    <strong>Email:</strong>
+                    {{ order.address.email }}
+                </div>
+
+                {% endif %}
+
+
+                <div>
+                    {{ order.address.address }}
+                </div>
+
+
+                {% if order.address.landmark %}
+
+                <div>
+                    {{ order.address.landmark }}
+                </div>
+
+                {% endif %}
+
+
+                <div>
+                    {{ order.address.city }},
+                    {{ order.address.state }}
+                    -
+                    {{ order.address.pincode }}
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             ORDER SUMMARY
+        ================================================== -->
+
+        <div class="detail-card">
+
+            <h2 class="detail-card-title">
+                Order Summary
+            </h2>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    ₹{{ order.subtotal|floatformat:2 }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Shipping
+                </span>
+
+                <strong>
+
+                    {% if order.shipping == 0 %}
+
+                        Free
+
+                    {% else %}
+
+                        ₹{{ order.shipping|floatformat:2 }}
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="grand-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    ₹{{ order.grand_total|floatformat:2 }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACK BUTTON -->
+
+        <a
+            href="{% url 'my_orders' %}"
+            class="bottom-back-btn"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to My Orders
+        </a>
+
+
+    </div>
+
+</main>
+
+{% endblock %}
